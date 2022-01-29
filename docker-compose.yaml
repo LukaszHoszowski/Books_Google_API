@@ -39,6 +39,7 @@ services:
       - "DJANGO_SU_NAME=admin"
       - "DJANGO_SU_EMAIL=''"
       - "DJANGO_SU_PASSWORD=admin"
+      - "DJANGO_SECRET_KEY=l4d1@$t_@)sax63^d7hfq_^4v)btqy#=*im(j#@ak^6xq54wg)"
     restart: "on-failure"
     networks:
       - web
