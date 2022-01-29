@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "crispy_bootstrap5",
     # local
     'user.apps.UserConfig',
+    'books.apps.BooksConfig',
 
 
 ]
