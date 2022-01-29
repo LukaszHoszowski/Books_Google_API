@@ -1,13 +1,13 @@
 FROM python:3.10
-
+# set work directory
+ENV APP_HOME=/usr/src/app
+RUN mkdir $APP_HOME
+WORKDIR $APP_HOME
+# set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONBUFFERED 1
-
-WORKDIR /code
-
-COPY Pipfile Pipfile.lock /code/
+ENV PYTHONUNBUFFERED 1
+# install dependencies
+COPY Pipfile Pipfile.lock $APP_HOME/
 RUN pip install pipenv && pipenv install --system
-
-COPY . /code
-
-CMD python manage.py makemigrations && python manage.py migrate && python manage.py runserver 127.0.0.1:8000
+# copy project
+COPY . $APP_HOME/

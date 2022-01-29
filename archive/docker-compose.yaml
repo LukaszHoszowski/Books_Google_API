@@ -1,7 +1,7 @@
-version: '3.8'
+version: "3.9"
 
 networks:
-  web:
+  engine:
     driver: bridge
 
 services:
@@ -10,31 +10,29 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     networks:
-      - web
-  backend:
+      - engine
+
+  web:
     build:
       context: .
-      dockerfile: "Dockerfile"
+      dockerfile: "./Dockerfile"
     command: sh -c "
       python manage.py makemigrations &&
       python manage.py migrate &&
-      python manage.py runserver 0.0.0.0:8000"
+      python manage.py runserver 127.0.0.1:8000"
     volumes:
-      - .:/usr/src/app/
+      - .:/code
+      - static_volume:/code/static
+      - media_volume:/code/media
     ports:
       - '8000:8000'
     depends_on:
       - db
-    environment:
-      - "DJANGO_SECRET_KEY=secret"
-      - "DJANGO_DEBUG=1"
-      - "DB_NAME=postgres"
-      - "DB_USER=postgres"
-      - "DB_PASSWORD=postgres"
-      - "DB_HOST=db"
-      - "DB_PORT=5432"
     restart: "on-failure"
     networks:
-      - web
+      - engine
+
 volumes:
   postgres_data:
+  static_volume:
+  media_volume:
