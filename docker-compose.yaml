@@ -11,6 +11,8 @@ services:
       - postgres_data:/var/lib/postgresql/data/
     networks:
       - web
+    environment:
+      - "POSTGRES_HOST_AUTH_METHOD=trust"
   backend:
     build:
       context: .
