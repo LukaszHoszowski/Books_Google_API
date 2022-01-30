@@ -1,9 +1,11 @@
 from django.db import models
 
+from .validators import validate_year
+
 
 class Book(models.Model):
     title = models.CharField(max_length=200)
-    published_date = models.SmallIntegerField()
+    published_date = models.SmallIntegerField(validators=[validate_year])
     isbn = models.CharField(max_length=13)
     page_count = models.IntegerField(help_text='Page count')
     cover_link = models.CharField(max_length=300)
