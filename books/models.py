@@ -1,14 +1,14 @@
 from django.db import models
 
-from .validators import validate_year
+from .validators import validate_year, validate_isbn
 
 
 class Book(models.Model):
     title = models.CharField(max_length=200)
     published_date = models.SmallIntegerField(validators=[validate_year])
-    isbn = models.CharField(max_length=13)
-    page_count = models.IntegerField(help_text='Page count')
-    cover_link = models.CharField(max_length=300)
+    isbn = models.CharField(max_length=13, validators=[validate_isbn])
+    page_count = models.PositiveIntegerField(help_text='Page count')
+    cover_link = models.URLField(max_length=300)
     language = models.ForeignKey('Language', on_delete=models.DO_NOTHING)
     author = models.ManyToManyField('Author', related_name="authors")
 
