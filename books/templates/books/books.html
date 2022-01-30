@@ -1,13 +1,18 @@
-{% extends '_base.html' %}
+{% extends '_base.html'%}
 {% load static %}
+{% block title %}
+    All books
+{% endblock %}
 {% block content %}
-    <div class="container">
-        <br>
-        <h2 class="text-center">Search for your favorite Meals</h2>
-        <br>
-        <form method="GET">
-            <input type="text" name="name" placeholder="Search..." class="text-center">
-            <button type="submit" class="btn-danger btn-sm">SEARCH MEAL</button>
-        </form>
-    </div>
+   {% for book in books %}
+            <div><h2>
+                <br>
+                <a href="{% url 'books:book_detail' book.pk %}">{{ book.title }} (id: {{ book.pk }})</a>
+            </h2>
+                <p>Author: {{ book.author }}</p>
+                <p>Language: {{ book.language }}</p>
+            </div>
+            {% empty %}
+            <p><a href="">Add book</a></p>
+        {% endfor %}
 {% endblock %}
