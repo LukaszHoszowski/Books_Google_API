@@ -34,4 +34,4 @@ class Language(models.Model):
         return f'{self.lang}'
 
     class Meta:
-        ordering = ['name']
+        ordering = ['lang']
