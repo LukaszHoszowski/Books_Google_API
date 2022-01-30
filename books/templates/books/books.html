@@ -4,10 +4,11 @@
     All books
 {% endblock %}
 {% block content %}
+
     {% for book in books %}
         <div class="column">
-            <div class="card mt-3">
-                <img class="card-img-top"
+            <div class="card mt-3" style="min-height: 530px;">
+                <img class="card-img-top mb-3"
                      src="http://books.google.com/books/content?id=yUijDgAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
                      alt="{{ book.title }}">
                 <div class="card-block">
@@ -36,7 +37,21 @@
                         </small>
                     </p>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><a href="{% url 'books:book_edit' book.pk %}"><i class="bi bi-pencil-square text-success"> Edit</i></a></li>
+                        <li class="list-group-item"><a href="{% url 'books:book_edit' book.pk %}">
+                            <button type="button" class="btn btn-success">
+                                <i class="bi bi-pencil-square"> edit</i>
+                            </button>
+                        </a></li>
+                    </ul>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <form action="{% url 'books:book_delete' pk=book.pk %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger">
+                                    <i class="bi bi-pencil-square"> delete</i>
+                                </button>
+                            </form>
+                        </li>
                     </ul>
                 </div>
             </div>

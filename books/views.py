@@ -2,6 +2,7 @@ import operator
 from functools import reduce
 
 from django.db.models import Q
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse, reverse_lazy
 from django.views import View
@@ -15,24 +16,37 @@ class BooksListView(ListView):
     model = Book
     template_name = 'books/books.html'
     context_object_name = 'books'
-    paginate_by = 8
+    paginate_by = 4
 
     def get_queryset(self):
         q = self.request.GET.get('q')
-        if q:
-            # books = Book.objects.filter(
-            #     Q(title__icontains=query) | Q(language__icontains=query)
+        option = self.request.GET.get('option')
+
+        books = self.model.objects.select_related().all()
+
+        if q and not option:
+
+            # books_q = books.filter(
+            #     Q(title__icontains=q) | Q(author__name__icontains=q) | Q(language__lang__icontains=q)
             # )
+            books_q = books.filter(title__icontains=q) | \
+                      books.filter(author__name__icontains=q) | \
+                      books.filter(language__lang__icontains=q)
 
-            books = Book.objects.all()
-
-            query = reduce(operator.and_, [Q(author__name__icontains=q) for q in auths])
-            books = Book.objects.filter(query)
-
-            return books
+            return books_q.distinct()
+        elif option:
+            match option:
+                case "title":
+                    return books.filter(title__icontains=q).distinct()
+                case "author":
+                    return books.filter(author__name__icontains=q).distinct()
+                case "language":
+                    return books.filter(language__lang__icontains=q).distinct()
+                case "date":
+                    q = sorted([int(year) for year in q.split('-')])
+                    return books.filter(published_date__gte=q[0], published_date__lte=q[1]).distinct()
 
         return super().get_queryset()
-
 
 
 class BookDetailsView(DetailView):
@@ -78,3 +92,13 @@ class BookOrCreateView(View):
             return redirect('books:books_list')
 
         return render(request, 'books/book_add_or_edit.html', {'form': form})
+
+
+class BookDeleteView(View):
+    def post(self, request, pk):
+        book = Book.objects.get(pk=pk)
+        book.delete()
+        book.save()
+
+        return render(request, 'books/books.html')
+        # return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
