@@ -79,8 +79,11 @@ class BookOrCreateView(View):
 
         return render(request, 'books/book_add_or_edit.html', {'form': form})
 
-    def post(self, request, pk):
-        form = forms.BookForm(request.POST, instance=Book.objects.get(pk=pk))
+    def post(self, request, pk=None):
+        if pk:
+            form = forms.BookForm(request.POST, instance=Book.objects.get(pk=pk))
+        else:
+            form = forms.BookForm(request.POST)
 
         if form.is_valid():
             form.save()

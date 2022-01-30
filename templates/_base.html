@@ -52,15 +52,19 @@
                     <option value="title">Title</option>
                     <option value="author">Author</option>
                     <option value="language">Language</option>
-                    <option value="date" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom">>Year of publication</option>
+                    <option value="date" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom">>Year
+                        of publication
+                    </option>
                 </select>
-                <input class="form-control me-2" type="search" placeholder="Search for others" aria-label="Search" name="q">
+                <input class="form-control me-2" type="search" placeholder="Search for others" aria-label="Search"
+                       name="q">
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
 
 
             <form class="d-flex" action="{% url 'books:books_list' %}" method="get">
-                <input class="form-control me-2" type="search" placeholder="Search for wise" aria-label="Search" name="q">
+                <input class="form-control me-2" type="search" placeholder="Search for wise" aria-label="Search"
+                       name="q">
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
         </div>
@@ -70,11 +74,10 @@
 
 <div class="container-sm w-50">
     <div class="row justify-content-md-center">
-        <div class="col-xl-10">
-            {% block content %}
+        {% block content %}
 
-            {% endblock %}
-        </div>
+        {% endblock %}
+
     </div>
 </div>
 
