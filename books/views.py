@@ -1,3 +1,7 @@
+import datetime
+
+from django.db.models import Q
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse, reverse_lazy
 from django.views import View
@@ -38,8 +42,22 @@ class BooksListView(ListView):
                 case "language":
                     return books.filter(language__lang__icontains=q).distinct()
                 case "date":
-                    q = sorted([int(year) for year in q.split('-')])
-                    return books.filter(published_date__gte=q[0], published_date__lte=q[1]).distinct()
+                    try:
+                        q_date = sorted([int(year) for year in q.split('-')])
+                    except ValueError('Year in wrong format'):
+                        return HttpResponse('Year in wrong format')
+
+                    if len(q_date) == 2 and len(q) == 9:
+                        pass
+                    elif len(q_date) == 1 and len(q) == 4:
+                        q_date.append(datetime.date.today().year)
+
+                    return books.filter(published_date__gte=q_date[0], published_date__lte=q_date[1]).distinct()
+                case _:
+                    books_q = books.filter(
+                        Q(title__icontains=q) | Q(author__name__icontains=q) | Q(language__lang__icontains=q)
+                    )
+                    return books_q
 
         return super().get_queryset()
 
