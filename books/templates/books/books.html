@@ -1,18 +1,49 @@
-{% extends '_base.html'%}
+{% extends '_base.html' %}
 {% load static %}
 {% block title %}
     All books
 {% endblock %}
 {% block content %}
-   {% for book in books %}
-            <div><h2>
-                <br>
-                <a href="{% url 'books:book_detail' book.pk %}">{{ book.title }} (id: {{ book.pk }})</a>
-            </h2>
-                <p>Author: {{ book.author }}</p>
-                <p>Language: {{ book.language }}</p>
+    {% for book in books %}
+        <div class="column">
+            <div class="card mt-3">
+                <img class="card-img-top"
+                     src="http://books.google.com/books/content?id=yUijDgAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+                     alt="{{ book.title }}">
+                <div class="card-block">
+                    <h5 class="card-title">{{ book.title }}</h5>
+
+                    <p class="card-text">
+                        <small class="text">
+                            {{ book.author.all|join:" | " }}
+                        </small>
+                    </p>
+
+                    <p class="card-text">
+                        <small class="text">
+                            ISBN: {{ book.isbn }}
+                        </small>
+                    </p>
+                    <p class="card-text">
+                        <small class="text-muted">
+                            {{ book.language }} | {{ book.published_date }}
+                        </small>
+                    </p>
+
+                    <p class="card-text">
+                        <small class="text-muted">
+                            {{ book.page_count }} pages
+                        </small>
+                    </p>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><a href="{% url 'books:book_edit' book.pk %}"><i class="bi bi-pencil-square text-success"> Edit</i></a></li>
+                    </ul>
+                </div>
             </div>
-            {% empty %}
-            <p><a href="">Add book</a></p>
-        {% endfor %}
+        </div>
+
+    {% empty %}
+        <p><a href="">Add book</a></p>
+    {% endfor %}
+
 {% endblock %}

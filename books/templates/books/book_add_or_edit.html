@@ -5,13 +5,27 @@
 {% block title %}Add new book{% endblock %}
 
 {% block content %}
-    <h1>Add new book to our database</h1>
 
-    <form action="" method="post">
-        {% csrf_token %}
-        {{ form | crispy }}
 
-        <input type="submit" value="Add book">
-    </form>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+
+            </div>
+            <div class="col-sm">
+                <h1>Add to database</h1>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    {{ form | crispy }}
+
+                    <input type="submit" class='btn btn-success' value="Save">
+                </form>
+            </div>
+            <div class="col-sm">
+
+            </div>
+        </div>
+    </div>
 
 {% endblock %}

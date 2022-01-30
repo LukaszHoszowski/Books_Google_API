@@ -1,4 +1,7 @@
-from django.http import HttpResponse
+import operator
+from functools import reduce
+
+from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.urls import reverse, reverse_lazy
 from django.views import View
@@ -12,7 +15,24 @@ class BooksListView(ListView):
     model = Book
     template_name = 'books/books.html'
     context_object_name = 'books'
-    paginate_by = 6
+    paginate_by = 8
+
+    def get_queryset(self):
+        q = self.request.GET.get('q')
+        if q:
+            # books = Book.objects.filter(
+            #     Q(title__icontains=query) | Q(language__icontains=query)
+            # )
+
+            books = Book.objects.all()
+
+            query = reduce(operator.and_, [Q(author__name__icontains=q) for q in auths])
+            books = Book.objects.filter(query)
+
+            return books
+
+        return super().get_queryset()
+
 
 
 class BookDetailsView(DetailView):
