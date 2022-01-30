@@ -8,7 +8,7 @@ class Book(models.Model):
     published_date = models.SmallIntegerField(validators=[validate_year])
     isbn = models.CharField(max_length=13, validators=[validate_isbn])
     page_count = models.PositiveIntegerField(help_text='Page count')
-    cover_link = models.URLField(max_length=300)
+    cover_link = models.URLField()
     language = models.ForeignKey('Language', on_delete=models.DO_NOTHING)
     author = models.ManyToManyField('Author', related_name="authors")
 
