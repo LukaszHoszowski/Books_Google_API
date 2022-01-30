@@ -1,12 +1,7 @@
-import operator
-from functools import reduce
-
-from django.db.models import Q
-from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse, reverse_lazy
 from django.views import View
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, FormView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, FormView, DeleteView
 
 from . import forms, models
 from .models import Book
@@ -84,8 +79,8 @@ class BookOrCreateView(View):
 
         return render(request, 'books/book_add_or_edit.html', {'form': form})
 
-    def post(self, request, pk=None):
-        form = forms.BookForm(request.POST)
+    def post(self, request, pk):
+        form = forms.BookForm(request.POST, instance=Book.objects.get(pk=pk))
 
         if form.is_valid():
             form.save()
@@ -94,11 +89,11 @@ class BookOrCreateView(View):
         return render(request, 'books/book_add_or_edit.html', {'form': form})
 
 
-class BookDeleteView(View):
-    def post(self, request, pk):
-        book = Book.objects.get(pk=pk)
-        book.delete()
-        book.save()
+class BookDeleteView(DeleteView):
+    model = Book
 
-        return render(request, 'books/books.html')
-        # return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+    def get_success_url(self):
+        return reverse('books:books_list')
+
+    def get(self, request, *args, **kwargs):
+        return self.post(request, *args, **kwargs)

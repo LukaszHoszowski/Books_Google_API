@@ -44,21 +44,23 @@
                         </a></li>
                     </ul>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item">
-                            <form action="{% url 'books:book_delete' pk=book.pk %}" method="post">
+                        <li class="list-group-item"><a href="{% url 'books:book_delete' book.pk %}">
+                            <form method="POST" action="{% url "books:book_delete" book.pk %}">
                                 {% csrf_token %}
-                                <button type="submit" class="btn btn-danger">
+                                <button type="submit" value="Delete" class="btn btn-danger">
                                     <i class="bi bi-pencil-square"> delete</i>
                                 </button>
                             </form>
-                        </li>
+                        </a></li>
                     </ul>
                 </div>
             </div>
         </div>
 
     {% empty %}
-        <p><a href="">Add book</a></p>
+        <br>
+        <br>
+        <h1>We do not have any books, would you like to <a href="{% url "books:book_add" %}">add</a> one?</h1>
     {% endfor %}
 
 {% endblock %}
