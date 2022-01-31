@@ -13,8 +13,8 @@ from .models import Book, Language, Author
 from .permissions import NotPostman
 from .serializers import BookSerializer
 
-# Template Views
 
+# Template Views
 
 
 class BooksListView(ListView):
@@ -30,9 +30,8 @@ class BooksListView(ListView):
         books = self.model.objects.select_related().all()
 
         if q and not option:
-            books_q = books.filter(title__icontains=q) | \
-                      books.filter(author__name__icontains=q) | \
-                      books.filter(language__lang__icontains=q)
+            books_q = books.filter(title__icontains=q) | books.filter(author__name__icontains=q) | books.filter(
+                language__lang__icontains=q)
 
             return books_q.distinct()
         elif option:
@@ -168,3 +167,4 @@ class BooksViewSet(viewsets.ModelViewSet):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     search_fields = ['title', 'language']
+    permission_classes = (NotPostman,)

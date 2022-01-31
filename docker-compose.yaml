@@ -18,6 +18,8 @@ services:
       context: .
       dockerfile: "Dockerfile"
     command: sh -c "
+      flake8 -v --ignore=E501 --output-file=./test/flake8.log &&
+      pip freeze > requirements.txt &&
       python manage.py makemigrations &&
       python manage.py migrate &&
       python manage.py runserver 0.0.0.0:8000
