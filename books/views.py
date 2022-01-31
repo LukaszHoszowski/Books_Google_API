@@ -1,7 +1,4 @@
 import datetime
-from collections import defaultdict
-from functools import reduce
-
 import requests
 from django.db.models import Q
 from django.http import HttpResponse, HttpResponseRedirect
