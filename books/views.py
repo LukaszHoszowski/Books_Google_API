@@ -1,4 +1,6 @@
 import datetime
+from collections import defaultdict
+from functools import reduce
 
 import requests
 from django.db.models import Q
@@ -9,7 +11,7 @@ from django.views import View
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, FormView, DeleteView
 
 from . import forms, models
-from .models import Book, Language
+from .models import Book, Language, Author
 
 
 class BooksListView(ListView):
@@ -122,29 +124,34 @@ class BookAddFromGoogleApi(FormView):
     template_name = 'books/book_google_api_add.html'
     success_url = reverse_lazy('books:books_list')
 
-    def form_valid(self, form):
+    def form_valid(self, form, **kwargs):
         google_api_url = 'https://www.googleapis.com/books/v1/volumes?q='
         keyword = self.request.POST.get('keyword')
 
-        import pprint
+        data = requests.get(f'{google_api_url}{keyword}').json()['items']
 
-        data = requests.get(f'{google_api_url}{keyword}').json()
-        language = data['items'][0]['volumeInfo']['language']
-        # authors = data['items'][0]['volumeInfo']['authors']
-        pp = pprint.PrettyPrinter(width=200, compact=True)
-        # pp.pprint(authors)
+        def isbn_lookup(dick):
+            for identifier in entry.get('industryIdentifiers', ''):
+                if identifier['type'] == 'ISBN_13':
+                    return identifier['identifier']
+            return 'NA'
 
-        print(len(data['items']))
-        lang_set = {x['volumeInfo']['language'] for x in data['items']}
+        def author_lookup(dick):
+            for author in entry.get('authors', ''):
+                Author.objects.get_or_create()
 
-        print(lang_set)
+        for book in data:
+            if book:
+                entry = book.get('volumeInfo')
 
-        for lang in lang_set:
-            Language.objects.create(lang=lang)
-
-        # authors_set = {x['volumeInfo']['authors'] for x in data['items']}
-        # print(data['items'][0]['volumeInfo'])
-        # for lang in lang_set:
-        #     Language.objects.create(lang=lang)
+                new_book = Book.objects.get_or_create(title=entry.get('title', ''),
+                                                      published_date=int(entry.get('publishedDate', '0')[:4]),
+                                                      isbn=isbn_lookup(entry),
+                                                      page_count=entry.get('pageCount', 0),
+                                                      cover_link=entry.get('imageLinks', '').get('thumbnail')
+                                                      if entry.get('imageLinks') else '',
+                                                      language=Language.objects.get_or_create(
+                                                          lang=entry.get('language', 'NA'))[0]
+                                                      )
 
         return HttpResponseRedirect(self.get_success_url())
