@@ -35,16 +35,20 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{% url 'books:books_list' %}"><i
-                            class="bi bi-card-list"></i> Books list</a>
+                    <a class="nav-link active" aria-current="page" href="{% url 'books:books_list' %}">
+                        <i class="bi bi-card-list"></i> Books list</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link active text-success" aria-current="page" href="{% url 'books:book_add' %}"><i
-                            class="bi bi-plus-circle-fill text-success"></i> Add the Book</a>
+                    <a class="nav-link active text-success" aria-current="page" href="{% url 'books:book_add' %}">
+                        <i class="bi bi-plus-circle-fill text-success"></i> Add the Book</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link active text-primary" aria-current="page" href="{% url 'books:book_google_api_add' %}">
+                        <i class="bi bi-upload"></i> Add Google API's books</a>
                 </li>
             </ul>
-
 
             <form class="d-flex me-2" action="{% url 'books:books_list' %}" method="get">
                 <select class="form-select me-2" aria-label="Search options" name="option">

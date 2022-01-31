@@ -50,7 +50,7 @@
                                 <form method="POST" action="{% url "books:book_delete" book.pk %}">
                                     {% csrf_token %}
                                     <button type="submit" value="Delete" class="btn btn-danger">
-                                        <i class="bi bi-pencil-square"> delete</i>
+                                        <i class="bi bi-trash"> delete</i>
                                     </button>
                                 </form>
                             </a></li>

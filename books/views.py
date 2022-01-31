@@ -1,14 +1,15 @@
 import datetime
 
+import requests
 from django.db.models import Q
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse, reverse_lazy
 from django.views import View
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, FormView, DeleteView
 
 from . import forms, models
-from .models import Book
+from .models import Book, Language
 
 
 class BooksListView(ListView):
@@ -24,10 +25,6 @@ class BooksListView(ListView):
         books = self.model.objects.select_related().all()
 
         if q and not option:
-
-            # books_q = books.filter(
-            #     Q(title__icontains=q) | Q(author__name__icontains=q) | Q(language__lang__icontains=q)
-            # )
             books_q = books.filter(title__icontains=q) | \
                       books.filter(author__name__icontains=q) | \
                       books.filter(language__lang__icontains=q)
@@ -118,3 +115,36 @@ class BookDeleteView(DeleteView):
 
     def get(self, request, *args, **kwargs):
         return self.post(request, *args, **kwargs)
+
+
+class BookAddFromGoogleApi(FormView):
+    form_class = forms.GoogleAPIBookForm
+    template_name = 'books/book_google_api_add.html'
+    success_url = reverse_lazy('books:books_list')
+
+    def form_valid(self, form):
+        google_api_url = 'https://www.googleapis.com/books/v1/volumes?q='
+        keyword = self.request.POST.get('keyword')
+
+        import pprint
+
+        data = requests.get(f'{google_api_url}{keyword}').json()
+        language = data['items'][0]['volumeInfo']['language']
+        # authors = data['items'][0]['volumeInfo']['authors']
+        pp = pprint.PrettyPrinter(width=200, compact=True)
+        # pp.pprint(authors)
+
+        print(len(data['items']))
+        lang_set = {x['volumeInfo']['language'] for x in data['items']}
+
+        print(lang_set)
+
+        for lang in lang_set:
+            Language.objects.create(lang=lang)
+
+        # authors_set = {x['volumeInfo']['authors'] for x in data['items']}
+        # print(data['items'][0]['volumeInfo'])
+        # for lang in lang_set:
+        #     Language.objects.create(lang=lang)
+
+        return HttpResponseRedirect(self.get_success_url())
