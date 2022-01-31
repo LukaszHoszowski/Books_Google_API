@@ -136,9 +136,11 @@ class BookAddFromGoogleApi(FormView):
                     return identifier['identifier']
             return 'NA'
 
-        def author_lookup(dick):
-            for author in entry.get('authors', ''):
-                Author.objects.get_or_create()
+        def author_create(dick, book_obj):
+            for author in entry.get('authors', ['NA']):
+                author = ['NA'] if not author else author
+                obj_author = Author.objects.get_or_create(name=author)[0]
+                book_obj.author.add(obj_author)
 
         for book in data:
             if book:
@@ -153,5 +155,5 @@ class BookAddFromGoogleApi(FormView):
                                                       language=Language.objects.get_or_create(
                                                           lang=entry.get('language', 'NA'))[0]
                                                       )
-
+                author_create(entry, new_book[0])
         return HttpResponseRedirect(self.get_success_url())
