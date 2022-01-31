@@ -9,7 +9,7 @@ class Book(models.Model):
     isbn = models.CharField(max_length=13, null=True, blank=True, validators=[validate_isbn], help_text='ISBN')
     page_count = models.PositiveIntegerField(null=True, blank=True, help_text='Page count')
     cover_link = models.URLField(null=True, blank=True, help_text='Link to cover of the book')
-    language = models.ForeignKey('Language', on_delete=models.DO_NOTHING, help_text='Book language')
+    language = models.ForeignKey('Language', on_delete=models.DO_NOTHING, related_name='languages', help_text='Book language')
     author = models.ManyToManyField('Author', related_name="authors", blank=True, help_text='Authors list')
 
     def __str__(self):

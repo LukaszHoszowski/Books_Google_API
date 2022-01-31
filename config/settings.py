@@ -40,11 +40,11 @@ INSTALLED_APPS = [
     # 3rd party
     'crispy_forms',
     "crispy_bootstrap5",
+    "rest_framework",
+    "drf_yasg",
     # local
     'user.apps.UserConfig',
     'books.apps.BooksConfig',
-
-
 ]
 
 MIDDLEWARE = [
@@ -145,3 +145,11 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 AUTH_USER_MODEL = 'user.CustomUser'
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+    ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 10,
+}

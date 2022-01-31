@@ -6,9 +6,15 @@ from django.shortcuts import render, redirect
 from django.urls import reverse, reverse_lazy
 from django.views import View
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, FormView, DeleteView
+from rest_framework import viewsets
 
 from . import forms, models
 from .models import Book, Language, Author
+from .permissions import NotPostman
+from .serializers import BookSerializer
+
+# Template Views
+
 
 
 class BooksListView(ListView):
@@ -154,3 +160,11 @@ class BookAddFromGoogleApi(FormView):
                                                       )
                 author_create(entry, new_book[0])
         return HttpResponseRedirect(self.get_success_url())
+
+
+# DRF views
+
+class BooksViewSet(viewsets.ModelViewSet):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+    search_fields = ['title', 'language']
