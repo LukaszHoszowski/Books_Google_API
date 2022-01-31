@@ -9,13 +9,15 @@
 
         {% for book in books %}
             <div class="column">
-                <div class="card mt-3" style="min-height: 530px;">
-                    <img class="card-img-top mb-3"
+                <div class="card mt-3">
+                    <img class="card-img-top mb-3 d-block mx-auto"
+                         style="max-height: 200px; height: 200px; max-width: 150px; width: auto"
                          src="{{ book.cover_link }}"
                          alt="{{ book.title }}">
                     <div class="card-block">
+                        <p>
                         <h5 class="card-title">{{ book.title }}</h5>
-
+                        </p>
                         <p class="card-text">
                             <small class="text">
                                 {{ book.author.all|join:" | " }}
