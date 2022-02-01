@@ -6,3 +6,4 @@
 .coverage
 migrations/
 archive/
+.history
