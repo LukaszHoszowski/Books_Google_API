@@ -1,0 +1,105 @@
+{% extends '_base.html' %}
+{% load static %}
+{% block title %}
+    All books
+{% endblock %}
+{% block content %}
+
+    <div class="row">
+
+        {% for book in books %}
+            <div class="col-xl-3">
+                <div class="card mt-3">
+                    <img class="card-img-top mb-3 d-block mx-auto"
+                         style="max-height: 200px; height: 200px; max-width: 150px; width: auto"
+                         src="{{ book.cover_link }}"
+                         alt="{{ book.title }}">
+                    <div class="card-block">
+                        <p>
+                        <h5 class="card-title">{{ book.title }}</h5>
+                        </p>
+                        <p class="card-text">
+                            <small class="text">
+                                {{ book.author.all|join:" | " }}
+                            </small>
+                        </p>
+
+                        <p class="card-text">
+                            <small class="text">
+                                ISBN: {{ book.isbn }}
+                            </small>
+                        </p>
+                        <p class="card-text">
+                            <small class="text-muted">
+                                {{ book.language }} | {{ book.published_date }}
+                            </small>
+                        </p>
+
+                        <p class="card-text">
+                            <small class="text-muted">
+                                {{ book.page_count }} pages
+                            </small>
+                        </p>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><a href="{% url 'books:book_edit' book.pk %}">
+                                <button type="button" class="btn btn-success">
+                                    <i class="bi bi-pencil-square"> edit</i>
+                                </button>
+                            </a></li>
+                        </ul>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><a href="{% url 'books:book_delete' book.pk %}">
+                                <form method="POST" action="{% url "books:book_delete" book.pk %}">
+                                    {% csrf_token %}
+                                    <button type="submit" value="Delete" class="btn btn-danger">
+                                        <i class="bi bi-trash"> delete</i>
+                                    </button>
+                                </form>
+                            </a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <br>
+            <br>
+            <h1>We do not have any books, would you like to <a href="{% url "books:book_add" %}">add</a> one?</h1>
+        {% endfor %}
+    </div>
+
+        <!--Pagination-->
+        <div class="d-flex align-center">
+            <!-- <div class="column"> -->
+                {% if page_obj.paginator.num_pages > 1 %}
+                    <ul class="pagination">
+                        <li class="page-item">
+                            <a class="page-link" href="?page=1&ordering={{ ordering }}&filtering={{ filtering }}"
+                               tabindex="-1"
+                               aria-disabled="true">First</a>
+                        </li>
+
+                        {% if page_obj.has_previous %}
+                            <li class="page-item"><a class="page-link"
+                                                     href="?page={{ page_obj.previous_page_number }}&ordering={{ ordering }}&filtering={{ filtering }}">{{ page_obj.previous_page_number }}</a>
+                            </li>
+                        {% endif %}
+                        <li class="page-item active" aria-current="page">
+                            <a class="page-link" href="#">{{ page_obj.number }}</a>
+                        </li>
+                        {% if page_obj.has_next %}
+                            <li class="page-item"><a class="page-link"
+                                                     href="?page={{ page_obj.next_page_number }}&ordering={{ ordering }}&filtering={{ filtering }}">{{ page_obj.next_page_number }}</a>
+                            </li>
+                        {% endif %}
+                        <li class="page-item">
+                            <a class="page-link"
+                               href="?page={{ page_obj.paginator.num_pages }}&ordering={{ ordering }}&filtering={{ filtering }}"
+                               tabindex="-1" aria-disabled="true">Last</a>
+                        </li>
+                    </ul>
+                {% endif %}
+                <!--end of Pagination-->
+            <!-- </div> -->
+        </div>
+    
+{% endblock %}

@@ -34,8 +34,8 @@ body {
     min-width: 200px;
 }
 
-.card-text-container {
-    height: 220px !important;
+.card-text {
+    height: 348px !important;
 }
 
 .book-card {

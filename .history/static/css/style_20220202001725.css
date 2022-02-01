@@ -34,10 +34,6 @@ body {
     min-width: 200px;
 }
 
-.card-text-container {
-    height: 220px !important;
-}
-
 .book-card {
     height: 100%;
 }

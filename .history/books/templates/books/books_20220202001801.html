@@ -5,7 +5,7 @@
 {% endblock %}
 {% block content %}
 
-    <div class="row d-flex mt-3 ">
+    <div class="row">
 
         {% for book in books %}
             <div class="col-xl-3">
@@ -15,57 +15,48 @@
                          src="{{ book.cover_link }}"
                          alt="{{ book.title }}">
                     <div class="card-block">
-                        <div class="card-text-container">
-                            <p>
-                                <h5 class="card-title">{{ book.title }}</h5>
-                                </p>
-                                <p class="card-text">
-                                    <small class="text">
-                                        {{ book.author.all|join:" | " }}
-                                    </small>
-                                </p>
-        
-                                <p class="card-text">
-                                    <small class="text">
-                                        ISBN: {{ book.isbn }}
-                                    </small>
-                                </p>
-                                <p class="card-text">
-                                    <small class="text-muted">
-                                        {{ book.language }} | {{ book.published_date }}
-                                    </small>
-                                </p>
-        
-                                <p class="card-text">
-                                    <small class="text-muted">
-                                        {{ book.page_count }} pages
-                                    </small>
-                                </p>
+                        <p>
+                        <h5 class="card-title">{{ book.title }}</h5>
+                        </p>
+                        <p class="card-text">
+                            <small class="text">
+                                {{ book.author.all|join:" | " }}
+                            </small>
+                        </p>
 
-                        </div>
+                        <p class="card-text">
+                            <small class="text">
+                                ISBN: {{ book.isbn }}
+                            </small>
+                        </p>
+                        <p class="card-text">
+                            <small class="text-muted">
+                                {{ book.language }} | {{ book.published_date }}
+                            </small>
+                        </p>
 
-                        <div class="d-flex justify-content-center">
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item"><a href="{% url 'books:book_edit' book.pk %}">
-                                    <button type="button" class="btn btn-success">
-                                        <i class="bi bi-pencil-square"> edit</i>
+                        <p class="card-text">
+                            <small class="text-muted">
+                                {{ book.page_count }} pages
+                            </small>
+                        </p>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><a href="{% url 'books:book_edit' book.pk %}">
+                                <button type="button" class="btn btn-success">
+                                    <i class="bi bi-pencil-square"> edit</i>
+                                </button>
+                            </a></li>
+                        </ul>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><a href="{% url 'books:book_delete' book.pk %}">
+                                <form method="POST" action="{% url "books:book_delete" book.pk %}">
+                                    {% csrf_token %}
+                                    <button type="submit" value="Delete" class="btn btn-danger">
+                                        <i class="bi bi-trash"> delete</i>
                                     </button>
-                                </a></li>
-                            </ul>
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item"><a href="{% url 'books:book_delete' book.pk %}">
-                                    <form method="POST" action="{% url "books:book_delete" book.pk %}">
-                                        {% csrf_token %}
-                                        <button type="submit" value="Delete" class="btn btn-danger">
-                                            <i class="bi bi-trash"> delete</i>
-                                        </button>
-                                    </form>
-                                </a></li>
-                            </ul>
-
-                        </div>
-                        
-                        
+                                </form>
+                            </a></li>
+                        </ul>
                     </div>
                 </div>
             </div>

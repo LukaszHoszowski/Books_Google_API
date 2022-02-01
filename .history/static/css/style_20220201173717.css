@@ -34,14 +34,6 @@ body {
     min-width: 200px;
 }
 
-.card-text-container {
-    height: 220px !important;
-}
-
-.book-card {
-    height: 100%;
-}
-
 /* Responsive columns - one column layout (vertical) on small screens */
 @media screen and (max-width: 600px) {
     .column {
