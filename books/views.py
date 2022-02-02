@@ -1,14 +1,15 @@
 import datetime
 import json
+import re
 import urllib.request
 
 from django.contrib import messages
 from django.db.models import Q
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse, reverse_lazy
 from django.views import View
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, FormView, DeleteView
+from django.views.generic import ListView, DetailView, CreateView, FormView, DeleteView
 from rest_framework import viewsets
 
 from . import forms, models
@@ -24,7 +25,7 @@ class BooksListView(ListView):
     model = Book
     template_name = 'books/books.html'
     context_object_name = 'books'
-    paginate_by = 4
+    paginate_by = 8
 
     def get_queryset(self):
         q = self.request.GET.get('q')
@@ -77,12 +78,6 @@ class BookCreateView(CreateView):
     exclude = ['id']
     template_name = 'books/book_add_or_edit.html'
     success_url = reverse_lazy('books:books_list')
-
-
-class BookUpdateView(UpdateView):
-    model = Book
-    exclude = ['id']
-    template_name = 'books/book_update.html'
 
 
 class BookCreateUpdateView(FormView):
@@ -143,13 +138,13 @@ class BookAddFromGoogleApi(FormView):
             for book in data['items']:
                 book_vol = book['volumeInfo']
                 books.append((book['id'], f"'{book_vol.get('title')}' by {'| '.join(book_vol.get('authors', ''))}, "
-                                          f"year: {book_vol.get('publishedDate')[:4]}"))
+                                          f"year: {book_vol.get('publishedDate', 'NA')[:4]}"))
             form.fields['checked'].choices = books
 
         return form
 
     def form_valid(self, form):
-        keyword = form.cleaned_data.get('keyword', '')
+        keyword = re.sub('[^a-zA-Z]', '+', form.cleaned_data.get('keyword', ''))
 
         def isbn_lookup(dick):
             for identifier in entry.get('industryIdentifiers', ''):
@@ -175,7 +170,6 @@ class BookAddFromGoogleApi(FormView):
                 return redirect(reverse('books:book_google_api_add'))
 
             if data.get('totalItems') > 1:
-                print(form.cleaned_data.get('checked'))
                 self.request.session['data'] = data
                 return redirect(reverse('books:book_google_api_add'))
 
@@ -193,57 +187,14 @@ class BookAddFromGoogleApi(FormView):
                                                   published_date=int(entry.get('publishedDate', '0')[:4]),
                                                   isbn=isbn_lookup(entry),
                                                   page_count=entry.get('pageCount', 0),
-                                                  cover_link=entry.get('imageLinks', '').get('thumbnail')
-                                                  if entry.get('imageLinks') else '',
+                                                  cover_link=entry.get('imageLinks', '').get('thumbnail',
+                                                                                             '/static/images/book_placeholder.jpg')
+                                                  if entry.get('imageLinks') else '/static/images/book_placeholder.jpg',
                                                   language=Language.objects.get_or_create(
                                                       lang=entry.get('language', 'NA')[:2])[0]
                                                   )
             author_create(entry, new_book[0])
         return super().form_valid(form)
-
-
-class BookSelectFromGoogleApi(FormView):
-    form_class = forms.GoogleAPIBookSelectForm
-    template_name = 'books/book_google_api_select.html'
-    success_url = reverse_lazy('books:books_list')
-
-    google_api_url = 'https://www.googleapis.com/books/v1/volumes?q='
-
-    def form_valid(self, form, **kwargs):
-        keyword = self.request.POST.get('keyword')
-        # data = requests.get(f'{self.google_api_url}{keyword}').json()['items']
-        with urllib.request.urlopen(url=f'https://www.googleapis.com/books/v1/volumes?q={keyword}') as r:
-            result = r.read().decode('UTF-8')
-            data = json.loads(result)
-
-        def isbn_lookup(dick):
-            for identifier in entry.get('industryIdentifiers', ''):
-                if identifier['type'] == 'ISBN_13':
-                    return identifier['identifier']
-            return 'NA'
-
-        def author_create(dick, book_obj):
-            for author in entry.get('authors', ['NA']):
-                author = ['NA'] if not author else author
-                obj_author = Author.objects.get_or_create(name=author)[0]
-                book_obj.author.add(obj_author)
-
-        for book in data:
-            if book:
-                entry = book.get('volumeInfo')
-
-                new_book = Book.objects.get_or_create(title=entry.get('title', ''),
-                                                      published_date=int(entry.get('publishedDate', '0')[:4]),
-                                                      isbn=isbn_lookup(entry),
-                                                      page_count=entry.get('pageCount', 0),
-                                                      cover_link=entry.get('imageLinks', '').get('thumbnail')
-                                                      if entry.get('imageLinks') else '',
-                                                      language=Language.objects.get_or_create(
-                                                          lang=entry.get('language', 'NA'))[0]
-                                                      )
-                author_create(entry, new_book[0])
-                print(form)
-        return HttpResponseRedirect(self.get_success_url())
 
 
 # DRF views

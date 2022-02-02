@@ -18,29 +18,29 @@
                         <div class="card-text-container">
                             <p>
                                 <h5 class="card-title">{{ book.title }}</h5>
-                                </p>
-                                <p class="card-text">
-                                    <small class="text">
-                                        {{ book.author.all|join:" | " }}
-                                    </small>
-                                </p>
+                            </p>
+                            <p class="card-text">
+                                <small class="text">
+                                    {{ book.author.all|join:" | " }}
+                                </small>
+                            </p>
 
-                                <p class="card-text">
-                                    <small class="text">
-                                        ISBN: {{ book.isbn }}
-                                    </small>
-                                </p>
-                                <p class="card-text">
-                                    <small class="text-muted">
-                                        {{ book.language }} | {{ book.published_date }}
-                                    </small>
-                                </p>
+                            <p class="card-text">
+                                <small class="text">
+                                    ISBN: {{ book.isbn }}
+                                </small>
+                            </p>
+                            <p class="card-text">
+                                <small class="text-muted">
+                                    {{ book.language }} | {{ book.published_date }}
+                                </small>
+                            </p>
 
-                                <p class="card-text">
-                                    <small class="text-muted">
-                                        {{ book.page_count }} pages
-                                    </small>
-                                </p>
+                            <p class="card-text">
+                                <small class="text-muted">
+                                    {{ book.page_count }} pages
+                                </small>
+                            </p>
 
                         </div>
 
