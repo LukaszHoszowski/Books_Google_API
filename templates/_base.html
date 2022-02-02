@@ -60,17 +60,17 @@
                         of publication
                     </option>
                 </select>
-                <input class="form-control me-2" type="search" placeholder="Search for others" aria-label="Search"
+                <input class="form-control me-2" type="search" placeholder="Select option or just go wild" aria-label="Search"
                        name="q">
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
 
+{#            <form class="d-flex" action="{% url 'books:books_list' %}" method="get">#}
+{#                <input class="form-control me-2" type="search" placeholder="Search for wise" aria-label="Search"#}
+{#                       name="q">#}
+{#                <button class="btn btn-outline-success" type="submit">Search</button>#}
+{#            </form>#}
 
-            <form class="d-flex" action="{% url 'books:books_list' %}" method="get">
-                <input class="form-control me-2" type="search" placeholder="Search for wise" aria-label="Search"
-                       name="q">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
         </div>
     </div>
 </nav>
