@@ -14,5 +14,5 @@ class GoogleAPIBookForm(forms.Form):
 
 
 class GoogleAPIBookSelectForm(forms.Form):
-    class Meta:
-        fields = ['title', 'author']
+    checked = forms.MultipleChoiceField(label='Select books', widget=forms.CheckboxSelectMultiple(attrs={'checked': True}),
+                                        help_text='Choose as many you want :P', initial=True)

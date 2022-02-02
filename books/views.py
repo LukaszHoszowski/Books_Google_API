@@ -130,29 +130,26 @@ class BookAddFromGoogleApi(FormView):
     success_url = reverse_lazy('books:books_list')
 
     google_api_url = 'https://www.googleapis.com/books/v1/volumes?q='
-    books2select = []
 
     def get_form_class(self):
-        return forms.GoogleAPIBookSelectForm if self.books2select else forms.GoogleAPIBookForm
+        return forms.GoogleAPIBookSelectForm if self.request.session.get('data') else forms.GoogleAPIBookForm
 
     def get_form(self, *args, **kwargs):
-        data = self.books2select
-        print(data)
+        data = self.request.session.get('data')
         form = super().get_form(*args, **kwargs)
 
         if data:
             books = []
             for book in data['items']:
-                print(book)
-                books_vol = book['volumeInfo']
-                books.append((book['id'],
-                              f"'{books_vol.get('title')}' by {', '.join(books_vol.get('authors', ''))}, year: {books_vol.get('publishedDate')[:4]}"))
-            form.fields['select'].choices = books
+                book_vol = book['volumeInfo']
+                books.append((book['id'], f"'{book_vol.get('title')}' by {'| '.join(book_vol.get('authors', ''))}, "
+                                          f"year: {book_vol.get('publishedDate')[:4]}"))
+            form.fields['checked'].choices = books
 
         return form
 
-    def form_valid(self, form, **kwargs):
-        keyword = self.request.POST.get('keyword').replace(' ', '+')
+    def form_valid(self, form):
+        keyword = form.cleaned_data.get('keyword', '')
 
         def isbn_lookup(dick):
             for identifier in entry.get('industryIdentifiers', ''):
@@ -174,21 +171,20 @@ class BookAddFromGoogleApi(FormView):
                 data = json.loads(response)
 
             if data.get('totalItems', 0) == 0:
-                print(0)
                 messages.error(self.request, "We couldn't find such book", extra_tags='danger')
                 return redirect(reverse('books:book_google_api_add'))
 
             if data.get('totalItems') > 1:
-                print(1)
-                self.books2select = data
+                print(form.cleaned_data.get('checked'))
+                self.request.session['data'] = data
                 return redirect(reverse('books:book_google_api_add'))
 
-            # book = data.get('items')[0].get('volumeInfo')
+            books = data.get('items')[0].get('volumeInfo')
 
         else:
-            data = self.books2select.get('data', {}).get('items')
-            self.books2select = None
-            books = [book for book in data if book['id'] == form.cleaned_data.get('select')][0].get('volumeInfo')
+            data = self.request.session.get('data', {}).get('items')
+            self.request.session["data"] = None
+            books = [book for book in data if book['id'] in form.cleaned_data.get('checked')]
 
         for book in books:
             entry = book.get('volumeInfo')

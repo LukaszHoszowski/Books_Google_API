@@ -38,7 +38,7 @@ services:
     volumes:
       - .:/usr/src/app/
     environment:
-      - REDIS_HOST=redis
+      - 'REDIS_HOST=redis'
     ports:
       - '8000:8000'
     depends_on:
