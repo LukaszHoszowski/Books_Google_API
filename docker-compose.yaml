@@ -12,6 +12,15 @@ services:
     environment:
       - "POSTGRES_HOST_AUTH_METHOD=trust"
 
+  redis:
+    image: redis:alpine
+    ports:
+      - 6379:6379
+    volumes:
+      - redisdata:/data
+    networks:
+      - web
+
   backend:
     build:
       context: .
@@ -28,13 +37,17 @@ services:
       "
     volumes:
       - .:/usr/src/app/
+    environment:
+      - REDIS_HOST=redis
     ports:
       - '8000:8000'
     depends_on:
       - db
+#      - redis
     restart: "on-failure"
     networks:
       - web
 
 volumes:
   postgres_data:
+  redisdata:

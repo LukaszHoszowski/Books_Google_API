@@ -1,4 +1,6 @@
 FROM python:3.10
+
+RUN python -m pip install --upgrade pip
 # set work directory
 ENV APP_HOME=/usr/src/app
 RUN mkdir $APP_HOME

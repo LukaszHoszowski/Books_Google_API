@@ -11,3 +11,8 @@ class BookForm(forms.ModelForm):
 
 class GoogleAPIBookForm(forms.Form):
     keyword = forms.CharField(max_length=50)
+
+
+class GoogleAPIBookSelectForm(forms.Form):
+    class Meta:
+        fields = ['title', 'author']
