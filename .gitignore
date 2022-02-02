@@ -4,6 +4,7 @@
 .env
 .env.db
 .coverage
-migrations/
 archive/
-.history
+.env
+.env.db
+flake8.log

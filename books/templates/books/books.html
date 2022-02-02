@@ -5,7 +5,7 @@
 {% endblock %}
 {% block content %}
 
-    <div class="row d-flex mt-3 ">
+    <div class="row d-flex mt-3">
 
         {% for book in books %}
             <div class="col-xl-3">
@@ -24,7 +24,7 @@
                                         {{ book.author.all|join:" | " }}
                                     </small>
                                 </p>
-        
+
                                 <p class="card-text">
                                     <small class="text">
                                         ISBN: {{ book.isbn }}
@@ -35,7 +35,7 @@
                                         {{ book.language }} | {{ book.published_date }}
                                     </small>
                                 </p>
-        
+
                                 <p class="card-text">
                                     <small class="text-muted">
                                         {{ book.page_count }} pages
@@ -64,8 +64,8 @@
                             </ul>
 
                         </div>
-                        
-                        
+
+
                     </div>
                 </div>
             </div>
@@ -110,5 +110,5 @@
                 <!--end of Pagination-->
             <!-- </div> -->
         </div>
-    
+
 {% endblock %}

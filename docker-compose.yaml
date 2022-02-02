@@ -5,16 +5,22 @@ networks:
 services:
   db:
     image: library/postgres:14.1-alpine
+    env_file:
+      - ./envs/.env.db
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     networks:
       - web
     environment:
       - "POSTGRES_HOST_AUTH_METHOD=trust"
+
   backend:
     build:
       context: .
       dockerfile: "Dockerfile"
+    env_file:
+      - ./envs/.env
+      - ./envs/.env.db
     command: sh -c "
       flake8 -v --ignore=E501 --output-file=./test/flake8.log &&
       pip freeze > requirements.txt &&
@@ -28,20 +34,9 @@ services:
       - '8000:8000'
     depends_on:
       - db
-    environment:
-      - "DJANGO_SECRET_KEY=secret"
-      - "DJANGO_DEBUG=1"
-      - "DB_NAME=postgres"
-      - "DB_USER=postgres"
-      - "DB_PASSWORD=postgres"
-      - "DB_HOST=db"
-      - "DB_PORT=5432"
-      - "DJANGO_SU_NAME=admin"
-      - "DJANGO_SU_EMAIL=''"
-      - "DJANGO_SU_PASSWORD=admin"
-      - "DJANGO_SECRET_KEY=l4d1@$t_@)sax63^d7hfq_^4v)btqy#=*im(j#@ak^6xq54wg)"
     restart: "on-failure"
     networks:
       - web
+
 volumes:
   postgres_data:
