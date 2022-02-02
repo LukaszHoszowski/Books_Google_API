@@ -6,6 +6,8 @@ from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from rest_framework import permissions
 
+from books.views import BooksListView
+
 schema_view = get_schema_view(
     openapi.Info(
         title="Snippets API",
@@ -20,6 +22,7 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
+    path('/', BooksListView.as_view(), name="books_list"),
     path('admin/', admin.site.urls),
     path('books/', include('books.urls')),
     path('api/v1/', include('books.urls_drf')),
