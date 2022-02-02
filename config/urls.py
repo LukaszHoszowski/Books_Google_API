@@ -22,7 +22,7 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
-    path('/', BooksListView.as_view(), name="books_list"),
+    path('', BooksListView.as_view(), name="books_list"),
     path('admin/', admin.site.urls),
     path('books/', include('books.urls')),
     path('api/v1/', include('books.urls_drf')),

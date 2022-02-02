@@ -5,8 +5,6 @@ networks:
 services:
   db:
     image: library/postgres:14.1-alpine
-    env_file:
-      - ./envs/.env.db
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     networks:
