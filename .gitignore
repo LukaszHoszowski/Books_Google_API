@@ -6,3 +6,4 @@
 .coverage
 archive
 flake8.log
+books/migrations/0001_initial.py
