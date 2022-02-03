@@ -4,5 +4,5 @@
 .env
 .env.db
 .coverage
-archive/
+archive
 flake8.log
