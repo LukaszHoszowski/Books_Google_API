@@ -9,7 +9,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse, reverse_lazy
 from django.views import View
-from django.views.generic import ListView, DetailView, CreateView, FormView, DeleteView
+from django.views.generic import ListView, FormView, DeleteView
 from rest_framework import viewsets
 
 from . import forms, models
@@ -36,7 +36,6 @@ class BooksListView(ListView):
         if q and not option:
             books_q = books.filter(title__icontains=q) | books.filter(author__name__icontains=q) | books.filter(
                 language__lang__icontains=q)
-
             return books_q.distinct()
         elif option:
             match option:
@@ -52,9 +51,6 @@ class BooksListView(ListView):
                     except ValueError('Year in wrong format'):
                         return HttpResponse('Year in wrong format')
 
-                    # TODO przmyeslec
-                    if len(q_date) == 2 and len(q) == 9:
-                        pass
                     if len(q_date) == 1 and len(q) == 4:
                         q_date.append(datetime.date.today().year)
 
@@ -68,40 +64,15 @@ class BooksListView(ListView):
         return super().get_queryset()
 
 
-class BookDetailsView(DetailView):
-    model = Book
-    template_name = 'books/book.html'
-    context_object_name = 'book'
-
-
-class BookCreateView(CreateView):
-    model = Book
-    exclude = ['id']
-    template_name = 'books/book_add_or_edit.html'
-    success_url = reverse_lazy('books:books_list')
-
-
-class BookCreateUpdateView(FormView):
-    form_class = forms.BookForm
-    template_name = 'books/book_add_or_edit.html'
-    success_url = reverse_lazy('books:books_list')
-
-
 class BookOrCreateView(View):
     def get(self, request, pk=None):
         book_pk = models.Book.objects.filter(pk=pk)
-        if book_pk:
-            form = forms.BookForm(instance=book_pk.first())
-        else:
-            form = forms.BookForm()
+        form = forms.BookForm(request.POST, instance=Book.objects.get(pk=pk) if book_pk else None)
 
         return render(request, 'books/book_add_or_edit.html', {'form': form})
 
     def post(self, request, pk=None):
-        if pk:
-            form = forms.BookForm(request.POST, instance=Book.objects.get(pk=pk))
-        else:
-            form = forms.BookForm(request.POST)
+        form = forms.BookForm(request.POST, instance=Book.objects.get(pk=pk) if pk else None)
 
         if form.is_valid():
             form.save()
@@ -149,10 +120,7 @@ class BookAddFromGoogleApi(FormView):
 
         def isbn_lookup(dick):
             for identifier in entry.get('industryIdentifiers', ''):
-                # TODO przmyslec, kolejnosc tu nie dziala, inaczej i tak za dziala jak bedzie w jednym, uzyc IN
-                if identifier['type'] == 'ISBN_13':
-                    return identifier['identifier']
-                if identifier['type'] == 'ISBN_10':
+                if identifier['type'] in ['ISBN_13', 'ISBN_10']:
                     return identifier['identifier']
             return 'NA'
 
@@ -185,16 +153,22 @@ class BookAddFromGoogleApi(FormView):
         for book in books:
             entry = book.get('volumeInfo')
 
-            new_book = Book.objects.get_or_create(title=entry.get('title', ''),
-                                                  published_date=int(entry.get('publishedDate', '0')[:4]),
-                                                  isbn=isbn_lookup(entry),
-                                                  page_count=entry.get('pageCount', 0),
-                                                  cover_link=entry.get('imageLinks', '').get('thumbnail',
-                                                                                             '/static/images/book_placeholder.jpg')
-                                                  if entry.get('imageLinks') else '/static/images/book_placeholder.jpg',
-                                                  language=Language.objects.get_or_create(
-                                                      lang=entry.get('language', 'NA')[:2])[0]
-                                                  )
+            title = f"{entry.get('title', '')[:50]}{'...' if len(entry.get('title', '')) > 50 else ''}"
+            published_date = int(entry.get('publishedDate', '0')[:4])
+            isbn = isbn_lookup(entry)
+            page_count = entry.get('pageCount', 0)
+            cover_link = entry.get('imageLinks').get('thumbnail') if entry.get(
+                'imageLinks') else '/static/images/book_placeholder.jpg'
+            language = Language.objects.get_or_create(lang=entry.get('language', 'NA')[:2])[0]
+
+            print(entry.get('imageLinks'))
+
+            new_book = Book.objects.get_or_create(title=title,
+                                                  published_date=published_date,
+                                                  isbn=isbn,
+                                                  page_count=page_count,
+                                                  cover_link=cover_link,
+                                                  language=language)
             author_create(entry, new_book[0])
         return super().form_valid(form)
 
