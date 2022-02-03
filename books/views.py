@@ -52,9 +52,10 @@ class BooksListView(ListView):
                     except ValueError('Year in wrong format'):
                         return HttpResponse('Year in wrong format')
 
+                    # TODO przmyeslec
                     if len(q_date) == 2 and len(q) == 9:
                         pass
-                    elif len(q_date) == 1 and len(q) == 4:
+                    if len(q_date) == 1 and len(q) == 4:
                         q_date.append(datetime.date.today().year)
 
                     return books.filter(published_date__gte=q_date[0], published_date__lte=q_date[1]).distinct()
@@ -148,6 +149,7 @@ class BookAddFromGoogleApi(FormView):
 
         def isbn_lookup(dick):
             for identifier in entry.get('industryIdentifiers', ''):
+                # TODO przmyslec, kolejnosc tu nie dziala, inaczej i tak za dziala jak bedzie w jednym, uzyc IN
                 if identifier['type'] == 'ISBN_13':
                     return identifier['identifier']
                 if identifier['type'] == 'ISBN_10':
