@@ -16,3 +16,4 @@ COPY Pipfile Pipfile.lock $APP_HOME/
 RUN pip install pipenv && pipenv install --system
 # copy project
 COPY . $APP_HOME/
+
