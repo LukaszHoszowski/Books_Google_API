@@ -1,9 +1,9 @@
 FROM python:3.10.2-slim as builder
 
-RUN python -m pip install --upgrade pip
 RUN apt-get update \
-&& apt-get install gcc -y \
-&& apt-get clean
+    && apt-get install gcc -y \
+    && apt-get clean \
+    && apt-get autoremove
 # set work directory
 ENV APP_HOME=/usr/src/app
 RUN mkdir $APP_HOME
@@ -13,6 +13,6 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 # install dependencies
 COPY Pipfile Pipfile.lock $APP_HOME/
-RUN pip install pipenv && pipenv install --system
+RUN python -m pip install --upgrade pip && pip install pipenv && pipenv install --system
 # copy project
 COPY . $APP_HOME/
