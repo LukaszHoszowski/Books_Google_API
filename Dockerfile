@@ -13,6 +13,8 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 # install dependencies
 COPY Pipfile Pipfile.lock $APP_HOME/
-RUN python -m pip install --upgrade pip && pip install pipenv && pipenv install --system
+RUN python -m pip install --upgrade pip \
+    && pip install pipenv  \
+    && pipenv install --system
 # copy project
 COPY . $APP_HOME/
