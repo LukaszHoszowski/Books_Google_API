@@ -9,8 +9,6 @@ services:
       - postgres_data:/var/lib/postgresql/data/
     networks:
       - web
-    environment:
-      - "POSTGRES_HOST_AUTH_METHOD=trust"
 
   redis:
     image: redis:alpine
@@ -24,7 +22,6 @@ services:
   backend:
     build:
       context: .
-      dockerfile: "Dockerfile"
     env_file:
       - ./envs/.env
       - ./envs/.env.db
@@ -36,8 +33,6 @@ services:
       "
     volumes:
       - .:/usr/src/app/
-    environment:
-      - 'REDIS_HOST=redis'
     ports:
       - '8000:8000'
     depends_on:

@@ -161,8 +161,6 @@ class BookAddFromGoogleApi(FormView):
                 'imageLinks') else '/static/images/book_placeholder.jpg'
             language = Language.objects.get_or_create(lang=entry.get('language', 'NA')[:2])[0]
 
-            print(entry.get('imageLinks'))
-
             new_book = Book.objects.get_or_create(title=title,
                                                   published_date=published_date,
                                                   isbn=isbn,
