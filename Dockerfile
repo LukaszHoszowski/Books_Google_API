@@ -1,5 +1,4 @@
-FROM python:3.10.2-slim as builder
-
+FROM python:3.10.2-slim
 RUN apt-get update \
     && apt-get install gcc -y \
     && apt-get clean \
