@@ -22,8 +22,9 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
-    path('', BooksListView.as_view(), name="books_list"),
+    path('admin/doc/', include('django.contrib.admindocs.urls')),
     path('admin/', admin.site.urls),
+    path('', BooksListView.as_view(), name="books_list"),
     path('books/', include('books.urls')),
     path('api/v1/', include('books.urls_drf')),
     path('api-auth/', include('rest_framework.urls')),
