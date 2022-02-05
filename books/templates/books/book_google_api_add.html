@@ -11,14 +11,6 @@
             <div class="col-xl">
                 <h1>Add Google API books</h1>
 
-                {% if messages %}
-                    {% for message in messages %}
-                        {% if 'danger' in message.tags %}
-                            <p class="text-danger">{{ message }}</p>
-                        {% endif %}
-                    {% endfor %}
-                {% endif %}
-
                 <form action="" method="post">
                     {% csrf_token %}
                     {{ form | crispy }}

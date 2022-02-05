@@ -70,7 +70,7 @@ class BookAddView(CreateView):
     template_name = 'books/book_add.html'
 
     def get_success_url(self):
-        messages.success(self.request, 'Book has been created')
+        messages.success(self.request, "Book has been added", extra_tags='success')
         return reverse_lazy("books:books_list")
 
 
@@ -80,7 +80,7 @@ class BookEditView(UpdateView):
     template_name = 'books/book_edit.html'
 
     def get_success_url(self):
-        messages.success(self.request, 'Book has been saved')
+        messages.success(self.request, "Book has been modified", extra_tags='success')
         return reverse_lazy("books:books_list")
 
 
@@ -134,12 +134,15 @@ class BookAddFromGoogleApi(FormView):
                 obj_author = Author.objects.get_or_create(name=author)[0]
                 book_obj.author.add(obj_author)
 
-        if keyword:
+        def api_call(api_url, q):
             with urllib.request.urlopen(url=f'{self.google_api_url}{keyword}') as r:
                 response = r.read().decode('UTF-8')
-                data = json.loads(response)
+            return json.loads(response)
 
-            if data.get('totalItems', 0) == 0:
+        if keyword:
+            data = api_call(self.google_api_url, keyword)
+
+            if not data.get('totalItems', 0):
                 messages.error(self.request, "We couldn't find any books matching your query", extra_tags='danger')
                 return redirect(reverse('books:book_google_api_add'))
 
