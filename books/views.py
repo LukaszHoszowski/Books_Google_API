@@ -8,7 +8,7 @@ from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.urls import reverse, reverse_lazy
-from django.views.generic import ListView, FormView, DeleteView, UpdateView
+from django.views.generic import ListView, FormView, DeleteView, UpdateView, CreateView
 from rest_framework import viewsets
 
 from . import forms
@@ -64,6 +64,16 @@ class BooksListView(ListView):
         return super().get_queryset()
 
 
+class BookAddView(CreateView):
+    model = Book
+    form_class = BookForm
+    template_name = 'books/book_add.html'
+
+    def get_success_url(self):
+        messages.success(self.request, 'Book has been created')
+        return reverse_lazy("books:books_list")
+
+
 class BookEditView(UpdateView):
     model = Book
     form_class = BookForm
@@ -71,24 +81,7 @@ class BookEditView(UpdateView):
 
     def get_success_url(self):
         messages.success(self.request, 'Book has been saved')
-        print(self.pk_url_kwarg)
         return reverse_lazy("books:books_list")
-
-    # def get(self, request, *args, **kwargs):
-    #     print(request)
-    #     self.object = self.get_object()
-    #     return super().get(request, *args, **kwargs)
-
-
-    # def post(self, request, pk=None):
-    #     form = forms.BookForm(request.POST, instance=Book.objects.get(pk=pk) if pk else None)
-    #
-    #     if form.is_valid():
-    #         form.save()
-    #         messages.success(self.request, 'Book has been saved')
-    #         return redirect('books:books_list')
-    #
-    #     return render(request, 'books/book_add_or_edit.html', {'form': form})
 
 
 class BookDeleteView(DeleteView):
