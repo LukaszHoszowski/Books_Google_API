@@ -6,13 +6,13 @@ import urllib.request
 from django.contrib import messages
 from django.db.models import Q
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
 from django.urls import reverse, reverse_lazy
-from django.views import View
-from django.views.generic import ListView, FormView, DeleteView
+from django.views.generic import ListView, FormView, DeleteView, UpdateView
 from rest_framework import viewsets
 
-from . import forms, models
+from . import forms
+from .forms import BookForm
 from .models import Book, Language, Author
 from .permissions import NotPostman
 from .serializers import BookSerializer
@@ -64,27 +64,38 @@ class BooksListView(ListView):
         return super().get_queryset()
 
 
-class BookOrCreateView(View):
-    def get(self, request, pk=None):
-        book_pk = models.Book.objects.filter(pk=pk)
-        form = forms.BookForm(request.POST, instance=Book.objects.get(pk=pk) if book_pk else None)
+class BookEditView(UpdateView):
+    model = Book
+    form_class = BookForm
+    template_name = 'books/book_edit.html'
 
-        return render(request, 'books/book_add_or_edit.html', {'form': form})
+    def get_success_url(self):
+        messages.success(self.request, 'Book has been saved')
+        print(self.pk_url_kwarg)
+        return reverse_lazy("books:books_list")
 
-    def post(self, request, pk=None):
-        form = forms.BookForm(request.POST, instance=Book.objects.get(pk=pk) if pk else None)
+    # def get(self, request, *args, **kwargs):
+    #     print(request)
+    #     self.object = self.get_object()
+    #     return super().get(request, *args, **kwargs)
 
-        if form.is_valid():
-            form.save()
-            return redirect('books:books_list')
 
-        return render(request, 'books/book_add_or_edit.html', {'form': form})
+    # def post(self, request, pk=None):
+    #     form = forms.BookForm(request.POST, instance=Book.objects.get(pk=pk) if pk else None)
+    #
+    #     if form.is_valid():
+    #         form.save()
+    #         messages.success(self.request, 'Book has been saved')
+    #         return redirect('books:books_list')
+    #
+    #     return render(request, 'books/book_add_or_edit.html', {'form': form})
 
 
 class BookDeleteView(DeleteView):
     model = Book
 
     def get_success_url(self):
+        messages.success(self.request, 'Book was deleted successfully')
         return reverse('books:books_list')
 
     def get(self, request, *args, **kwargs):
@@ -136,7 +147,7 @@ class BookAddFromGoogleApi(FormView):
                 data = json.loads(response)
 
             if data.get('totalItems', 0) == 0:
-                messages.error(self.request, "We couldn't find such book", extra_tags='danger')
+                messages.error(self.request, "We couldn't find any books matching your query", extra_tags='danger')
                 return redirect(reverse('books:book_google_api_add'))
 
             if data.get('totalItems') > 1:

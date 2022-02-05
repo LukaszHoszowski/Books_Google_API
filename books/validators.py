@@ -13,8 +13,8 @@ def validate_year(value):
 
 
 def validate_isbn(value):
-    if len(value) != 13 or len(value) != 10 or value == 'NA':
+    if value != 'NA' and (len(value) not in [13, 10]):
         raise ValidationError(
-            _('%(value)s ISBN should have 10 or 13 chars'),
+            _('ISBN should have 10 or 13 chars'),
             params={'value': value},
         )
