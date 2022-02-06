@@ -69,8 +69,23 @@ def get_books_list_response(db):
     url = reverse('books_list')
     return client.get(url)
 
+
 @pytest.fixture
 def get_book_add_response(db):
     client = Client(enforce_csrf_checks=True)
-    url = reverse('books_list')
+    url = reverse('books:book_add')
+    return client.get(url)
+
+
+@pytest.fixture
+def get_book_add_google_api_books_response(db):
+    client = Client(enforce_csrf_checks=True)
+    url = reverse('books:book_google_api_add')
+    return client.get(url)
+
+
+@pytest.fixture
+def get_book_add_response(db):
+    client = Client(enforce_csrf_checks=True)
+    url = reverse('books:book_add')
     return client.get(url)

@@ -62,10 +62,14 @@ def test_add_google_api_books_status_code(client, db):
 def test_books_list_template(get_books_list_response):
     assert 'books/books.html' in [x.name for x in get_books_list_response.templates]
 
-def test_books_list_template(get_books_list_response):
-    assert 'books/books.html' in [x.name for x in get_books_list_response.templates]
-#
-#
+
+def test_book_google_api_add_template(get_book_add_google_api_books_response):
+    assert 'books/book_google_api_add.html' in [x.name for x in get_book_add_google_api_books_response.templates]
+
+
+def test_book_add_template(get_book_add_response):
+    assert 'books/book_add.html' in [x.name for x in get_book_add_response.templates]
+
 # def test_signup_contains_correct_html(get_signup_response):
 #     assert 'Sign Up' in get_signup_response.content.decode("UTF-8")
 
