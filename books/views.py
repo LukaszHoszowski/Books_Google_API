@@ -313,8 +313,8 @@ class BookAddFromGoogleApi(FormView):
             """
             for author in api_dict.get('authors', ['NA']):
                 author = ['NA'] if not author else author
-                obj_author = Author.objects.get_or_create(name=author)[0]
-                book_obj.author.add(obj_author)
+                author_obj = Author.objects.get_or_create(name=author)[0]
+                book_obj.author.add(author_obj)
 
         def api_call(api_url, q):
             """

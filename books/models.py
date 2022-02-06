@@ -9,7 +9,7 @@ class Book(models.Model):
 
     **Return** : capitalized title
     """
-    title = models.CharField(max_length=1000, help_text='Title')
+    title = models.CharField(max_length=54, help_text='Title')
     published_date = models.SmallIntegerField(null=True, blank=True, validators=[validate_year], help_text='Publish year')
     isbn = models.CharField(max_length=13, null=True, blank=True,  validators=[validate_isbn], help_text='ISBN')
     page_count = models.PositiveIntegerField(null=True, blank=True, help_text='Page count')
