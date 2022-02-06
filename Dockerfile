@@ -18,5 +18,5 @@ RUN python -m pip install --upgrade pip && pip install pipenv && pipenv install 
 COPY . $APP_CODE/
 
 FROM build AS test
-CMD flake8 -v --ignore=E501 --output-file=./test/flake8.log
+CMD flake8 -v --ignore=E501 --output-file=./docs/Flake8/flake8.log
 CMD python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000
