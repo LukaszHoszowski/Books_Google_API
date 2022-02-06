@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from .models import Book, Author, Language
+from books.models import Book, Author, Language
 
 
 class BookTests(TestCase):

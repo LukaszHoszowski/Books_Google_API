@@ -64,7 +64,14 @@ def book_two(db, language_two, authors_variable, request) -> Book:
 # View helpers
 
 @pytest.fixture
-def get_books_list_response(db):
+def get_books_empty_list_response(db):
+    client = Client(enforce_csrf_checks=True)
+    url = reverse('books_list')
+    return client.get(url)
+
+
+@pytest.fixture
+def get_books_book_one_list_response(db, book_one):
     client = Client(enforce_csrf_checks=True)
     url = reverse('books_list')
     return client.get(url)
@@ -88,4 +95,18 @@ def get_book_add_google_api_books_response(db):
 def get_book_add_response(db):
     client = Client(enforce_csrf_checks=True)
     url = reverse('books:book_add')
+    return client.get(url)
+
+
+@pytest.fixture
+def get_book_edit_response(db, book_one):
+    client = Client(enforce_csrf_checks=True)
+    url = reverse('books:book_edit', kwargs={'pk': book_one.pk})
+    return client.get(url)
+
+
+@pytest.fixture
+def get_book_google_api_add_response(db):
+    client = Client(enforce_csrf_checks=True)
+    url = reverse('book_google_api_add')
     return client.get(url)

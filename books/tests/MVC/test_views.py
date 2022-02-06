@@ -1,7 +1,7 @@
 from django.urls import reverse_lazy
 
 
-# URLs - status codes
+# URLs - status codes - GET
 
 def test_main_status_code(client, db):
     response_reverse = client.get(reverse_lazy('books_list'))
@@ -57,22 +57,31 @@ def test_add_google_api_books_status_code(client, db):
     assert response_absolute.status_code == 200
 
 
-# Templates
+# Templates/Content
 
-def test_books_list_template(get_books_list_response):
-    assert 'books/books.html' in [x.name for x in get_books_list_response.templates]
+def test_empty_books_list_template(get_books_empty_list_response):
+    assert 'books/books.html' in [x.name for x in get_books_empty_list_response.templates]
+    assert 'We do not have any books, would you like to' in get_books_empty_list_response.content.decode("UTF-8")
+
+
+def test_books_book_one_list_template(get_books_book_one_list_response):
+    assert 'books/books.html' in [x.name for x in get_books_book_one_list_response.templates]
+    assert 'Sex Offenders in Oregon' in get_books_book_one_list_response.content.decode("UTF-8")
 
 
 def test_book_google_api_add_template(get_book_add_google_api_books_response):
     assert 'books/book_google_api_add.html' in [x.name for x in get_book_add_google_api_books_response.templates]
+    assert 'keyword' in get_book_add_google_api_books_response.content.decode("UTF-8")
+    assert 'csrftoken' in get_book_add_google_api_books_response.cookies
 
 
 def test_book_add_template(get_book_add_response):
     assert 'books/book_add.html' in [x.name for x in get_book_add_response.templates]
+    assert 'Add Book' in get_book_add_response.content.decode("UTF-8")
+    assert 'csrftoken' in get_book_add_response.cookies
 
-# def test_signup_contains_correct_html(get_signup_response):
-#     assert 'Sign Up' in get_signup_response.content.decode("UTF-8")
 
-# def test_signup_form(get_signup_response):
-#     form = get_signup_response.context.get('form')
-#     assert 'csrftoken' in get_signup_response.cookies
+def test_book_edit_template(get_book_edit_response):
+    assert 'books/book_edit.html' in [x.name for x in get_book_edit_response.templates]
+    assert 'Sex Offenders in Oregon' in get_book_edit_response.content.decode("UTF-8")
+    assert 'csrftoken' in get_book_edit_response.cookies
