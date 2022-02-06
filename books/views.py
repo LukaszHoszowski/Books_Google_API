@@ -49,6 +49,8 @@ class BooksListView(ListView):
         Returns:
             queryset: List of searched books from the model.
         """
+        self.request.session["data"] = None
+
         q = self.request.GET.get('q')
         option = self.request.GET.get('option')
         books = self.model.objects.select_related().all()
@@ -100,6 +102,15 @@ class BookAddView(CreateView):
     form_class = BookForm
     template_name = 'books/book_add.html'
 
+    def get(self, request, *args, **kwargs):
+        """
+            Clearing API data from session.
+            Args:
+                request (dict): User request.
+        """
+        self.request.session["data"] = None
+        return super().get(request, *args, **kwargs)
+
     def get_success_url(self):
         """
             Success Url with message on success.
@@ -129,6 +140,15 @@ class BookEditView(UpdateView):
     form_class = BookForm
     template_name = 'books/book_edit.html'
 
+    def get(self, request, *args, **kwargs):
+        """
+            Clearing API data from session.
+            Args:
+                request (dict): User request.
+        """
+        self.request.session["data"] = None
+        return super().get(request, *args, **kwargs)
+
     def get_success_url(self):
         """
             Success Url with message on success.
@@ -137,6 +157,7 @@ class BookEditView(UpdateView):
             Returns:
                 url: Url to list of all books on success.
         """
+        self.request.session["data"] = None
         messages.success(self.request, "Book has been modified", extra_tags='success')
         return reverse_lazy("books:books_list")
 
@@ -166,10 +187,12 @@ class BookDeleteView(DeleteView):
     def get(self, request, *args, **kwargs):
         """
             Handling of the GET View. GET View is being immediately redirected to POST View, seamless deleting.
+            Clearing API data in session
             Args:
                 request (dict): User request with:
                     pk (int): Book item id.
         """
+        self.request.session["data"] = None
         return self.post(request, *args, **kwargs)
 
 
@@ -203,7 +226,7 @@ class BookAddFromGoogleApi(FormView):
     form_class = forms.GoogleAPIBookForm
     template_name = 'books/book_google_api_add.html'
     success_url = reverse_lazy('books:books_list')
-
+    # TODO Cancel - why redirects to main?
     google_api_url = 'https://www.googleapis.com/books/v1/volumes?q='
 
     def get_form_class(self):
@@ -274,8 +297,8 @@ class BookAddFromGoogleApi(FormView):
                     isbn (str): 13 or 10 char isbn, default: 'NA'.
             """
             for identifier in api_dict.get('industryIdentifiers', ''):
-                if identifier['type'] in ['ISBN_13', 'ISBN_10']:
-                    return identifier['identifier']
+                if str(identifier['type']) in ['ISBN_13', 'ISBN_10']:
+                    return str(identifier['identifier'])
             return 'NA'
 
         def author_create(api_dict, book_obj):
@@ -361,5 +384,3 @@ class BooksViewSet(viewsets.ModelViewSet):
     serializer_class = BookSerializer
     search_fields = ['title', 'language']
     permission_classes = (NotPostman,)
-
-#TODO dodac przyrwanie sesji

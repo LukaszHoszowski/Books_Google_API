@@ -5,7 +5,7 @@
 {% block title %}Add Google API books{% endblock %}
 
 {% block content %}
-     <div class="row d-flex mt-3">
+    <div class="row d-flex mt-3">
         <div class="row">
 
             <div class="col-xl">
@@ -14,7 +14,12 @@
                 <form action="" method="post">
                     {% csrf_token %}
                     {{ form | crispy }}
-                    <input type="submit" class='btn btn-success'>
+                    <div class="d-flex justify-content-center">
+                        <input type="submit" class='btn btn-success mx-3'>
+                        {% if request.session.data %}
+                            <a href="{% url 'books:book_google_api_add' %}"><button class='btn btn-danger'>Cancel</button></a>
+                        {% endif %}
+                    </div>
                 </form>
             </div>
 
