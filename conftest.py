@@ -1,7 +1,11 @@
 import pytest
+from django.urls import reverse
+from django.test import Client
 
 from books.models import Language, Author, Book
 
+
+# Model helpers
 
 @pytest.fixture(params=('pl',))
 def language_one(db, request) -> Language:
@@ -55,3 +59,18 @@ def book_two(db, language_two, authors_variable, request) -> Book:
         book.author.add(author)
 
     return book
+
+
+# View helpers
+
+@pytest.fixture
+def get_books_list_response(db):
+    client = Client(enforce_csrf_checks=True)
+    url = reverse('books_list')
+    return client.get(url)
+
+@pytest.fixture
+def get_book_add_response(db):
+    client = Client(enforce_csrf_checks=True)
+    url = reverse('books_list')
+    return client.get(url)
