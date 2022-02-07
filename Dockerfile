@@ -1,7 +1,7 @@
 FROM python:3.10.2-slim AS build
 
 RUN apt-get update \
-    && apt-get install gcc -y \
+    && apt-get install --no-install-recommends -y gcc -y \
     && apt-get clean \
     && apt-get autoremove
 

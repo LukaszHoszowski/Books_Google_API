@@ -11,7 +11,7 @@ class Book(models.Model):
     """
     title = models.CharField(max_length=54, help_text='Title')
     published_date = models.SmallIntegerField(null=True, blank=True, validators=[validate_year], help_text='Publish year')
-    isbn = models.CharField(max_length=13, null=True, blank=True,  validators=[validate_isbn], help_text='ISBN')
+    isbn = models.CharField(max_length=13, null=True, blank=True, validators=[validate_isbn], help_text='ISBN')
     page_count = models.PositiveIntegerField(null=True, blank=True, help_text='Page count')
     cover_link = models.URLField(null=True, blank=True, help_text='Link to cover of the book')
     language = models.ForeignKey('Language', on_delete=models.DO_NOTHING, related_name='languages', help_text='Book language')

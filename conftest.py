@@ -92,13 +92,6 @@ def get_book_add_google_api_books_response(db):
 
 
 @pytest.fixture
-def get_book_add_response(db):
-    client = Client(enforce_csrf_checks=True)
-    url = reverse('books:book_add')
-    return client.get(url)
-
-
-@pytest.fixture
 def get_book_edit_response(db, book_one):
     client = Client(enforce_csrf_checks=True)
     url = reverse('books:book_edit', kwargs={'pk': book_one.pk})

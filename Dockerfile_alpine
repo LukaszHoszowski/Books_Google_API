@@ -9,7 +9,7 @@ WORKDIR $APP_CODE
 COPY Pipfile Pipfile.lock $APP_CODE/
 
 RUN apk update \
-    && apk add --no-cache --virtual .build-deps gcc postgresql-dev python3-dev musl-dev  \
+    && apk add --no-cache --update --virtual .build-deps gcc postgresql-dev python3-dev musl-dev  \
     && python -m pip install --upgrade pip \
     && pip install --no-cache-dir pipenv \
     && pipenv install --system \
@@ -18,7 +18,7 @@ RUN apk update \
 COPY . $APP_CODE/
 
 FROM build AS development
-CMD flake8 -v --ignore=E501 --output-file=./docs/Flake8/flake8.log
+CMD flake8 -v --ignore=E501 --count --output-file=./docs/Flake8/flake8.log
 CMD python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000
 
 # image size: 171.3 MB

@@ -59,10 +59,10 @@ def test_validate_year_model_validators_negative(value, exc_msg):
      ('12345678901234', 'ISBN should have 13 chars'),
      ('NAS', 'ISBN should have 13 chars')
      ])
-def test_validate_isbn_model_validators_positive(value, validity):
+def test_validate_isbn_model_validators_positive(value, exc_msg):
     with pytest.raises(ValidationError) as exc:
         validate_isbn(value)
-    assert validity in str(exc.value)
+    assert exc_msg in str(exc.value)
 
 
 @pytest.mark.parametrize(
@@ -71,5 +71,5 @@ def test_validate_isbn_model_validators_positive(value, validity):
      ('1234567890999', None),
      ('NA', None)
      ])
-def test_validate_year_model_validators_negative(value, exc_msg):
+def test_validate_isbn_model_validators_negative(value, exc_msg):
     assert not validate_isbn(value)
