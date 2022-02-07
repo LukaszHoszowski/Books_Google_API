@@ -54,7 +54,7 @@ def test_validate_year_model_validators_negative(value, exc_msg):
 
 
 @pytest.mark.parametrize(
-    'value, validity',
+    'value, exc_msg',
     [('123456', 'ISBN should have 13 chars'),
      ('12345678901234', 'ISBN should have 13 chars'),
      ('NAS', 'ISBN should have 13 chars')
