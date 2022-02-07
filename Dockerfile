@@ -20,3 +20,5 @@ COPY . $APP_CODE/
 FROM build AS development
 CMD flake8 -v --ignore=E501 --output-file=./docs/Flake8/flake8.log
 CMD python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000
+
+EXPOSE 8000:8000

@@ -54,11 +54,7 @@ class BooksListView(ListView):
         option = self.request.GET.get('option')
         books = self.model.objects.select_related().all()
 
-        if q and not option:
-            books_q = books.filter(title__icontains=q) | books.filter(author__name__icontains=q) | books.filter(
-                language__lang__icontains=q)
-            return books_q.distinct()
-        elif option:
+        if q:
             match option:
                 case "title":
                     return books.filter(title__icontains=q).distinct()
@@ -80,7 +76,7 @@ class BooksListView(ListView):
                     books_q = books.filter(
                         Q(title__icontains=q) | Q(author__name__icontains=q) | Q(language__lang__icontains=q)
                     )
-                    return books_q
+                    return books_q.distinct()
         return super().get_queryset()
 
 
