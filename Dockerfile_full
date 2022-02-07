@@ -1,22 +1,22 @@
-FROM python:3.10.2-slim AS build
-
-RUN apt-get update \
-    && apt-get install gcc -y \
-    && apt-get clean \
-    && apt-get autoremove
-
-ENV APP_CODE=/usr/src/app
-RUN mkdir $APP_CODE
-WORKDIR $APP_CODE
+FROM python:3.10.2 AS build
 
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
+ENV APP_CODE=/usr/src/app
+
+WORKDIR $APP_CODE
 
 COPY Pipfile Pipfile.lock $APP_CODE/
-RUN python -m pip install --upgrade pip && pip install pipenv && pipenv install --system
+
+RUN apt-get update \
+    && apt-get clean \
+    && apt-get autoremove \
+    && python -m pip install --no-cache-dir --upgrade pip && pip install --no-cache-dir pipenv && pipenv install --system
 
 COPY . $APP_CODE/
 
 FROM build AS development
 CMD flake8 -v --ignore=E501 --output-file=./docs/Flake8/flake8.log
 CMD python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000
+
+# image size: 1 GB
