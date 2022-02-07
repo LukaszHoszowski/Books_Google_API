@@ -1,3 +1,5 @@
+import json
+
 import pytest
 from django.urls import reverse
 from django.test import Client
@@ -33,7 +35,7 @@ def book_one(db, language_one, author_one, author_two, request) -> Book:
 
     book = Book.objects.create(title=request.param,
                                published_date=1994,
-                               isbn='8380498240',
+                               isbn='8380498240123',
                                page_count=100,
                                cover_link=sample_url,
                                language=language_one)
@@ -44,7 +46,7 @@ def book_one(db, language_one, author_one, author_two, request) -> Book:
 
 
 @pytest.fixture(params=('Bible',))
-def book_two(db, language_two, authors_variable, request) -> Book:
+def book_two(db, language_two, author_two, request) -> Book:
     sample_url = 'http://books.google.com/books/content?id=lwidpxMe-AIC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api'
 
     book = Book.objects.create(title=request.param,
@@ -54,9 +56,7 @@ def book_two(db, language_two, authors_variable, request) -> Book:
                                cover_link=sample_url,
                                language=language_two)
 
-    for author in authors_variable:
-        author = Author.objects.create(name=author)
-        book.author.add(author)
+    book.author.add(author_two)
 
     return book
 
@@ -110,3 +110,10 @@ def get_book_google_api_add_response(db):
     client = Client(enforce_csrf_checks=True)
     url = reverse('book_google_api_add')
     return client.get(url)
+
+
+@pytest.fixture
+def get_mocked_api_data_response():
+    with open('books/tests/MVC/api_test_data.json') as f:
+        data = json.load(f)
+    return data

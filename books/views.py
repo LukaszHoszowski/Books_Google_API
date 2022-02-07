@@ -1,7 +1,5 @@
 import datetime
-import json
 import re
-import urllib.request
 
 from django.contrib import messages
 from django.db.models import Q
@@ -13,7 +11,8 @@ from rest_framework import viewsets
 
 from . import forms
 from .forms import BookForm
-from .models import Book, Language, Author
+from .helper_func import api_call, isbn_lookup, author_create
+from .models import Book, Language
 from .permissions import NotPostman
 from .serializers import BookSerializer
 
@@ -287,47 +286,6 @@ class BookAddFromGoogleApi(FormView):
                 form_valid: True/False.
         """
         keyword = re.sub('[^a-zA-Z]', '+', form.cleaned_data.get('keyword', ''))
-
-        def isbn_lookup(api_dict):
-            """
-                Helper function, helps to find ISBN record in API response.
-                Args:
-                    api_dict (dict): Partial data from API call.
-                Returns:
-                    isbn (str): 13 or 10 char isbn, default: 'NA'.
-            """
-            for identifier in api_dict.get('industryIdentifiers', ''):
-                if str(identifier['type']) in ['ISBN_13', 'ISBN_10']:
-                    return str(identifier['identifier'])
-            return 'NA'
-
-        def author_create(api_dict, book_obj):
-            """
-                Helper function, collects authors of single book instance.
-                Args:
-                    api_dict (dict): Partial data from API call,
-                    book_obj (object): a newly created book instance to which the authors will be added with
-                    many-to-many relation.
-                Returns:
-                    None
-            """
-            for author in api_dict.get('authors', ['NA']):
-                author = ['NA'] if not author else author
-                author_obj = Author.objects.get_or_create(name=author)[0]
-                book_obj.author.add(author_obj)
-
-        def api_call(api_url, q):
-            """
-                Helper function, url parser send API call.
-                Args:
-                    api_url (str): url to Books Google API,
-                    q (str): keyword for query
-                Returns:
-                    data (dict): retrieved data as json decoded to UTF-8.
-            """
-            with urllib.request.urlopen(url=f'{api_url}{q}') as r:
-                response = r.read().decode('UTF-8')
-            return json.loads(response)
 
         if keyword:
             data = api_call(self.google_api_url, keyword)

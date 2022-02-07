@@ -17,11 +17,11 @@ class BookTests(TestCase):
         book.author.add(author)
 
     def test_post_content(self):
-        book = Book.objects.get(pk=1)
+        book = Book.objects.first()
         self.assertEqual(book.title, 'costam')
         self.assertEqual(book.published_date, 1999)
         self.assertEqual(book.isbn, '1111222233334')
         self.assertEqual(book.page_count, 100)
         self.assertEqual(book.cover_link, 'http://books.google.com/books/content?id=mnkbAQAAMAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api')
         self.assertEqual(book.language.lang, 'en')
-        self.assertEqual(book.author.name, 'Jan Kowalski')
+        self.assertEqual(book.author.first().name, 'Jan Kowalski')

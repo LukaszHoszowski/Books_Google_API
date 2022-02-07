@@ -23,7 +23,7 @@ def test_create_book_object_str(book_one):
     assert str(book_one) == 'Sex Offenders In Oregon'
     assert book_one.title == 'Sex Offenders in Oregon'
     assert book_one.published_date == 1994
-    assert book_one.isbn == '8380498240'
+    assert book_one.isbn == '8380498240123'
     assert book_one.page_count == 100
     assert book_one.cover_link == \
            'http://books.google.com/books/content?id=lwidpxMe-AIC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api'
@@ -55,9 +55,9 @@ def test_validate_year_model_validators_negative(value, exc_msg):
 
 @pytest.mark.parametrize(
     'value, validity',
-    [('123456', 'ISBN should have 10 or 13 chars'),
-     ('12345678901234', 'ISBN should have 10 or 13 chars'),
-     ('NAS', 'ISBN should have 10 or 13 chars')
+    [('123456', 'ISBN should have 13 chars'),
+     ('12345678901234', 'ISBN should have 13 chars'),
+     ('NAS', 'ISBN should have 13 chars')
      ])
 def test_validate_isbn_model_validators_positive(value, validity):
     with pytest.raises(ValidationError) as exc:
@@ -68,7 +68,7 @@ def test_validate_isbn_model_validators_positive(value, validity):
 @pytest.mark.parametrize(
     'value, exc_msg',
     [('1234567890123', None),
-     ('1234567890', None),
+     ('1234567890999', None),
      ('NA', None)
      ])
 def test_validate_year_model_validators_negative(value, exc_msg):

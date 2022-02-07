@@ -1,0 +1,725 @@
+{
+    "kind": "books#volumes",
+    "totalItems": 793,
+    "items": [
+        {
+            "kind": "books#volume",
+            "id": "WwJkzgEACAAJ",
+            "etag": "t+l/P6LpMs4",
+            "selfLink": "https://www.googleapis.com/books/v1/volumes/WwJkzgEACAAJ",
+            "volumeInfo": {
+                "title": "Slow sex",
+                "subtitle": "uwolnij miłość",
+                "authors": [
+                    "Marta Niedźwiecka",
+                    "Hanna Rydlewska"
+                ],
+                "publishedDate": "2021",
+                "industryIdentifiers": [
+                    {
+                        "type": "ISBN_10",
+                        "identifier": "8326841218"
+                    },
+                    {
+                        "type": "ISBN_13",
+                        "identifier": "9788326841217"
+                    }
+                ],
+                "readingModes": {
+                    "text": false,
+                    "image": false
+                },
+                "printType": "BOOK",
+                "maturityRating": "NOT_MATURE",
+                "allowAnonLogging": false,
+                "contentVersion": "preview-1.0.0",
+                "panelizationSummary": {
+                    "containsEpubBubbles": false,
+                    "containsImageBubbles": false
+                },
+                "language": "en",
+                "previewLink": "http://books.google.pl/books?id=WwJkzgEACAAJ&dq=sex&hl=&cd=1&source=gbs_api",
+                "infoLink": "http://books.google.pl/books?id=WwJkzgEACAAJ&dq=sex&hl=&source=gbs_api",
+                "canonicalVolumeLink": "https://books.google.com/books/about/Slow_sex.html?hl=&id=WwJkzgEACAAJ"
+            },
+            "saleInfo": {
+                "country": "PL",
+                "saleability": "NOT_FOR_SALE",
+                "isEbook": false
+            },
+            "accessInfo": {
+                "country": "PL",
+                "viewability": "NO_PAGES",
+                "embeddable": false,
+                "publicDomain": false,
+                "textToSpeechPermission": "ALLOWED",
+                "epub": {
+                    "isAvailable": false
+                },
+                "pdf": {
+                    "isAvailable": false
+                },
+                "webReaderLink": "http://play.google.com/books/reader?id=WwJkzgEACAAJ&hl=&printsec=frontcover&source=gbs_api",
+                "accessViewStatus": "NONE",
+                "quoteSharingAllowed": false
+            }
+        },
+        {
+            "kind": "books#volume",
+            "id": "jrMB8V2DWjsC",
+            "etag": "7Uwe84nxqf8",
+            "selfLink": "https://www.googleapis.com/books/v1/volumes/jrMB8V2DWjsC",
+            "volumeInfo": {
+                "title": "Global Sex",
+                "authors": [
+                    "Dennis Altman"
+                ],
+                "publisher": "University of Chicago Press",
+                "publishedDate": "2002-09",
+                "description": "Global Sex is the first major work to take on the globalization of sexuality, examining the ways in which desire and pleasure—as well as ideas about gender, political power, and public health—are framed, shaped, or commodified by a global economy in which more and more cultures move into ever-closer contact.",
+                "industryIdentifiers": [
+                    {
+                        "type": "ISBN_10",
+                        "identifier": "0226016056"
+                    },
+                    {
+                        "type": "ISBN_13",
+                        "identifier": "9780226016054"
+                    }
+                ],
+                "readingModes": {
+                    "text": true,
+                    "image": true
+                },
+                "pageCount": 216,
+                "printType": "BOOK",
+                "categories": [
+                    "Political Science"
+                ],
+                "maturityRating": "MATURE",
+                "allowAnonLogging": false,
+                "contentVersion": "1.2.6.0.preview.3",
+                "panelizationSummary": {
+                    "containsEpubBubbles": false,
+                    "containsImageBubbles": false
+                },
+                "imageLinks": {
+                    "smallThumbnail": "http://books.google.com/books/content?id=jrMB8V2DWjsC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+                    "thumbnail": "http://books.google.com/books/content?id=jrMB8V2DWjsC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+                },
+                "language": "en",
+                "previewLink": "http://books.google.pl/books?id=jrMB8V2DWjsC&printsec=frontcover&dq=sex&hl=&cd=2&source=gbs_api",
+                "infoLink": "http://books.google.pl/books?id=jrMB8V2DWjsC&dq=sex&hl=&source=gbs_api",
+                "canonicalVolumeLink": "https://books.google.com/books/about/Global_Sex.html?hl=&id=jrMB8V2DWjsC"
+            },
+            "saleInfo": {
+                "country": "PL",
+                "saleability": "NOT_FOR_SALE",
+                "isEbook": false
+            },
+            "accessInfo": {
+                "country": "PL",
+                "viewability": "PARTIAL",
+                "embeddable": true,
+                "publicDomain": false,
+                "textToSpeechPermission": "ALLOWED",
+                "epub": {
+                    "isAvailable": true,
+                    "acsTokenLink": "http://books.google.pl/books/download/Global_Sex-sample-epub.acsm?id=jrMB8V2DWjsC&format=epub&output=acs4_fulfillment_token&dl_type=sample&source=gbs_api"
+                },
+                "pdf": {
+                    "isAvailable": true,
+                    "acsTokenLink": "http://books.google.pl/books/download/Global_Sex-sample-pdf.acsm?id=jrMB8V2DWjsC&format=pdf&output=acs4_fulfillment_token&dl_type=sample&source=gbs_api"
+                },
+                "webReaderLink": "http://play.google.com/books/reader?id=jrMB8V2DWjsC&hl=&printsec=frontcover&source=gbs_api",
+                "accessViewStatus": "SAMPLE",
+                "quoteSharingAllowed": false
+            },
+            "searchInfo": {
+                "textSnippet": "Global Sex is the first major work to take on the globalization of sexuality, examining the ways in which desire and pleasure—as well as ideas about gender, political power, and public health—are framed, shaped, or commodified by a ..."
+            }
+        },
+        {
+            "kind": "books#volume",
+            "id": "rapQkHyheN4C",
+            "etag": "f8z+XY94eBM",
+            "selfLink": "https://www.googleapis.com/books/v1/volumes/rapQkHyheN4C",
+            "volumeInfo": {
+                "title": "Sex for One",
+                "subtitle": "The Joy of Selfloving",
+                "authors": [
+                    "Betty Dodson"
+                ],
+                "publisher": "Harmony",
+                "publishedDate": "1996",
+                "description": "Argues that masturbation is a legitimate expression of self love, discusses shared masturbation and how it can enhance sex with a partner, and explains how men and women can become more in tune with their bodies.",
+                "industryIdentifiers": [
+                    {
+                        "type": "ISBN_13",
+                        "identifier": "9780517886076"
+                    },
+                    {
+                        "type": "ISBN_10",
+                        "identifier": "0517886073"
+                    }
+                ],
+                "readingModes": {
+                    "text": false,
+                    "image": false
+                },
+                "pageCount": 191,
+                "printType": "BOOK",
+                "categories": [
+                    "Health & Fitness"
+                ],
+                "maturityRating": "MATURE",
+                "allowAnonLogging": false,
+                "contentVersion": "0.1.0.0.preview.0",
+                "panelizationSummary": {
+                    "containsEpubBubbles": false,
+                    "containsImageBubbles": false
+                },
+                "imageLinks": {
+                    "smallThumbnail": "http://books.google.com/books/content?id=rapQkHyheN4C&printsec=frontcover&img=1&zoom=5&source=gbs_api",
+                    "thumbnail": "http://books.google.com/books/content?id=rapQkHyheN4C&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+                },
+                "language": "en",
+                "previewLink": "http://books.google.pl/books?id=rapQkHyheN4C&dq=sex&hl=&cd=3&source=gbs_api",
+                "infoLink": "http://books.google.pl/books?id=rapQkHyheN4C&dq=sex&hl=&source=gbs_api",
+                "canonicalVolumeLink": "https://books.google.com/books/about/Sex_for_One.html?hl=&id=rapQkHyheN4C"
+            },
+            "saleInfo": {
+                "country": "PL",
+                "saleability": "NOT_FOR_SALE",
+                "isEbook": false
+            },
+            "accessInfo": {
+                "country": "PL",
+                "viewability": "NO_PAGES",
+                "embeddable": false,
+                "publicDomain": false,
+                "textToSpeechPermission": "ALLOWED",
+                "epub": {
+                    "isAvailable": false
+                },
+                "pdf": {
+                    "isAvailable": false
+                },
+                "webReaderLink": "http://play.google.com/books/reader?id=rapQkHyheN4C&hl=&printsec=frontcover&source=gbs_api",
+                "accessViewStatus": "NONE",
+                "quoteSharingAllowed": false
+            },
+            "searchInfo": {
+                "textSnippet": "Argues that masturbation is a legitimate expression of self love, discusses shared masturbation and how it can enhance sex with a partner, and explains how men and women can become more in tune with their bodies."
+            }
+        },
+        {
+            "kind": "books#volume",
+            "id": "QklRAAAAcAAJ",
+            "etag": "US3wbWOekFs",
+            "selfLink": "https://www.googleapis.com/books/v1/volumes/QklRAAAAcAAJ",
+            "volumeInfo": {
+                "title": "Nicolai Copernici Torunensis De revolutionibus orbium coelestium libri sex",
+                "subtitle": "accedit G. Joachimi Rhetici narratio prima, cum Copernici nonnulis scriptis minoribus nunc primum collectis, ejusque vita",
+                "authors": [
+                    "Nicolaus Copernicus"
+                ],
+                "publishedDate": "1854",
+                "industryIdentifiers": [
+                    {
+                        "type": "OTHER",
+                        "identifier": "BSB:BSB10934409"
+                    }
+                ],
+                "readingModes": {
+                    "text": false,
+                    "image": true
+                },
+                "pageCount": 642,
+                "printType": "BOOK",
+                "categories": [
+                    "Solar system"
+                ],
+                "maturityRating": "NOT_MATURE",
+                "allowAnonLogging": false,
+                "contentVersion": "0.4.4.0.full.1",
+                "panelizationSummary": {
+                    "containsEpubBubbles": false,
+                    "containsImageBubbles": false
+                },
+                "imageLinks": {
+                    "smallThumbnail": "http://books.google.com/books/content?id=QklRAAAAcAAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+                    "thumbnail": "http://books.google.com/books/content?id=QklRAAAAcAAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+                },
+                "language": "pl",
+                "previewLink": "http://books.google.pl/books?id=QklRAAAAcAAJ&pg=PA498&dq=sex&hl=&cd=4&source=gbs_api",
+                "infoLink": "https://play.google.com/store/books/details?id=QklRAAAAcAAJ&source=gbs_api",
+                "canonicalVolumeLink": "https://play.google.com/store/books/details?id=QklRAAAAcAAJ"
+            },
+            "saleInfo": {
+                "country": "PL",
+                "saleability": "FREE",
+                "isEbook": true,
+                "buyLink": "https://play.google.com/store/books/details?id=QklRAAAAcAAJ&rdid=book-QklRAAAAcAAJ&rdot=1&source=gbs_api"
+            },
+            "accessInfo": {
+                "country": "PL",
+                "viewability": "ALL_PAGES",
+                "embeddable": true,
+                "publicDomain": true,
+                "textToSpeechPermission": "ALLOWED",
+                "epub": {
+                    "isAvailable": false,
+                    "downloadLink": "http://books.google.pl/books/download/Nicolai_Copernici_Torunensis_De_revoluti.epub?id=QklRAAAAcAAJ&hl=&output=epub&source=gbs_api"
+                },
+                "pdf": {
+                    "isAvailable": true,
+                    "downloadLink": "http://books.google.pl/books/download/Nicolai_Copernici_Torunensis_De_revoluti.pdf?id=QklRAAAAcAAJ&hl=&output=pdf&sig=ACfU3U1fFDVGLpoPIzlbQMu8D97YRREGoA&source=gbs_api"
+                },
+                "webReaderLink": "http://play.google.com/books/reader?id=QklRAAAAcAAJ&hl=&printsec=frontcover&source=gbs_api",
+                "accessViewStatus": "FULL_PUBLIC_DOMAIN",
+                "quoteSharingAllowed": false
+            },
+            "searchInfo": {
+                "textSnippet": "... sed circa longitudines medias eccentrici solis Regiomontan podaje ; niewiele pewniejszéj zasady użył , contingentes , ubi apogaeum solis per <b>sex</b> gradus , a vero kto tedy błąd popełnił , niech go sobie przyzna , za to że ipsius loco&nbsp;..."
+            }
+        },
+        {
+            "kind": "books#volume",
+            "id": "o2fTXRIlv-YC",
+            "etag": "W6txKAi5jSM",
+            "selfLink": "https://www.googleapis.com/books/v1/volumes/o2fTXRIlv-YC",
+            "volumeInfo": {
+                "title": "The Moral Sex",
+                "subtitle": "Woman's Nature in the French Enlightenment",
+                "authors": [
+                    "Lieselotte Steinbrügge"
+                ],
+                "publisher": "Oxford University Press on Demand",
+                "publishedDate": "1995",
+                "description": "How was the nature of women redefined and debated during the French Enlightenment? Instead of treating the Enlightenment in the usual manner, as a challenge to orthodox ideas and social conventions, Lieselotte Steinbrugge interprets it as a deviation from a position staked out in the seventeenth century, namely, \"the mind has no sex.\".",
+                "industryIdentifiers": [
+                    {
+                        "type": "ISBN_13",
+                        "identifier": "9780195094930"
+                    },
+                    {
+                        "type": "ISBN_10",
+                        "identifier": "019509493X"
+                    }
+                ],
+                "readingModes": {
+                    "text": true,
+                    "image": true
+                },
+                "pageCount": 157,
+                "printType": "BOOK",
+                "categories": [
+                    "Philosophy"
+                ],
+                "maturityRating": "NOT_MATURE",
+                "allowAnonLogging": false,
+                "contentVersion": "0.1.1.0.preview.3",
+                "panelizationSummary": {
+                    "containsEpubBubbles": false,
+                    "containsImageBubbles": false
+                },
+                "imageLinks": {
+                    "smallThumbnail": "http://books.google.com/books/content?id=o2fTXRIlv-YC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+                    "thumbnail": "http://books.google.com/books/content?id=o2fTXRIlv-YC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+                },
+                "language": "en",
+                "previewLink": "http://books.google.pl/books?id=o2fTXRIlv-YC&printsec=frontcover&dq=sex&hl=&cd=5&source=gbs_api",
+                "infoLink": "http://books.google.pl/books?id=o2fTXRIlv-YC&dq=sex&hl=&source=gbs_api",
+                "canonicalVolumeLink": "https://books.google.com/books/about/The_Moral_Sex.html?hl=&id=o2fTXRIlv-YC"
+            },
+            "saleInfo": {
+                "country": "PL",
+                "saleability": "NOT_FOR_SALE",
+                "isEbook": false
+            },
+            "accessInfo": {
+                "country": "PL",
+                "viewability": "PARTIAL",
+                "embeddable": true,
+                "publicDomain": false,
+                "textToSpeechPermission": "ALLOWED",
+                "epub": {
+                    "isAvailable": true,
+                    "acsTokenLink": "http://books.google.pl/books/download/The_Moral_Sex-sample-epub.acsm?id=o2fTXRIlv-YC&format=epub&output=acs4_fulfillment_token&dl_type=sample&source=gbs_api"
+                },
+                "pdf": {
+                    "isAvailable": false
+                },
+                "webReaderLink": "http://play.google.com/books/reader?id=o2fTXRIlv-YC&hl=&printsec=frontcover&source=gbs_api",
+                "accessViewStatus": "SAMPLE",
+                "quoteSharingAllowed": false
+            },
+            "searchInfo": {
+                "textSnippet": "Instead of treating the Enlightenment in the usual manner, as a challenge to orthodox ideas and social conventions, Lieselotte Steinbrugge interprets it as a deviation from a position staked out in the seventeenth century, namely, &quot;the mind ..."
+            }
+        },
+        {
+            "kind": "books#volume",
+            "id": "AUz2Uwd62BYC",
+            "etag": "+NAGDZ9sTiQ",
+            "selfLink": "https://www.googleapis.com/books/v1/volumes/AUz2Uwd62BYC",
+            "volumeInfo": {
+                "title": "Modern Sex Magick",
+                "subtitle": "Secrets of Erotic Spirituality",
+                "authors": [
+                    "Donald Michael Kraig"
+                ],
+                "publisher": "Llewellyn Worldwide Limited",
+                "publishedDate": "2003",
+                "description": "This is one of the first books to clearly reveal the secrets of Western sex magick without relying on Tantric theory. It explores the latest scientific discoveries in the field of human sexuality. 55 line illustrations.",
+                "industryIdentifiers": [
+                    {
+                        "type": "ISBN_10",
+                        "identifier": "1567183948"
+                    },
+                    {
+                        "type": "ISBN_13",
+                        "identifier": "9781567183948"
+                    }
+                ],
+                "readingModes": {
+                    "text": false,
+                    "image": false
+                },
+                "pageCount": 400,
+                "printType": "BOOK",
+                "categories": [
+                    "Body, Mind & Spirit"
+                ],
+                "maturityRating": "NOT_MATURE",
+                "allowAnonLogging": false,
+                "contentVersion": "0.2.2.0.preview.0",
+                "panelizationSummary": {
+                    "containsEpubBubbles": false,
+                    "containsImageBubbles": false
+                },
+                "imageLinks": {
+                    "smallThumbnail": "http://books.google.com/books/content?id=AUz2Uwd62BYC&printsec=frontcover&img=1&zoom=5&source=gbs_api",
+                    "thumbnail": "http://books.google.com/books/content?id=AUz2Uwd62BYC&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+                },
+                "language": "en",
+                "previewLink": "http://books.google.pl/books?id=AUz2Uwd62BYC&q=sex&dq=sex&hl=&cd=6&source=gbs_api",
+                "infoLink": "http://books.google.pl/books?id=AUz2Uwd62BYC&dq=sex&hl=&source=gbs_api",
+                "canonicalVolumeLink": "https://books.google.com/books/about/Modern_Sex_Magick.html?hl=&id=AUz2Uwd62BYC"
+            },
+            "saleInfo": {
+                "country": "PL",
+                "saleability": "NOT_FOR_SALE",
+                "isEbook": false
+            },
+            "accessInfo": {
+                "country": "PL",
+                "viewability": "NO_PAGES",
+                "embeddable": false,
+                "publicDomain": false,
+                "textToSpeechPermission": "ALLOWED",
+                "epub": {
+                    "isAvailable": false
+                },
+                "pdf": {
+                    "isAvailable": false
+                },
+                "webReaderLink": "http://play.google.com/books/reader?id=AUz2Uwd62BYC&hl=&printsec=frontcover&source=gbs_api",
+                "accessViewStatus": "NONE",
+                "quoteSharingAllowed": false
+            },
+            "searchInfo": {
+                "textSnippet": "This is one of the first books to clearly reveal the secrets of Western sex magick without relying on Tantric theory. It explores the latest scientific discoveries in the field of human sexuality. 55 line illustrations."
+            }
+        },
+        {
+            "kind": "books#volume",
+            "id": "cwATAAAAIAAJ",
+            "etag": "jrQOW5r+OQc",
+            "selfLink": "https://www.googleapis.com/books/v1/volumes/cwATAAAAIAAJ",
+            "volumeInfo": {
+                "title": "Sex in Education",
+                "subtitle": "Or, A Fair Chance for the Girls",
+                "authors": [
+                    "Edward Hammond Clarke"
+                ],
+                "publishedDate": "1873",
+                "industryIdentifiers": [
+                    {
+                        "type": "OTHER",
+                        "identifier": "NYPL:33433075997068"
+                    }
+                ],
+                "readingModes": {
+                    "text": false,
+                    "image": true
+                },
+                "pageCount": 181,
+                "printType": "BOOK",
+                "categories": [
+                    "Women"
+                ],
+                "maturityRating": "NOT_MATURE",
+                "allowAnonLogging": false,
+                "contentVersion": "2.3.7.0.full.1",
+                "panelizationSummary": {
+                    "containsEpubBubbles": false,
+                    "containsImageBubbles": false
+                },
+                "imageLinks": {
+                    "smallThumbnail": "http://books.google.com/books/content?id=cwATAAAAIAAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+                    "thumbnail": "http://books.google.com/books/content?id=cwATAAAAIAAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+                },
+                "language": "en",
+                "previewLink": "http://books.google.pl/books?id=cwATAAAAIAAJ&printsec=frontcover&dq=sex&hl=&cd=7&source=gbs_api",
+                "infoLink": "https://play.google.com/store/books/details?id=cwATAAAAIAAJ&source=gbs_api",
+                "canonicalVolumeLink": "https://play.google.com/store/books/details?id=cwATAAAAIAAJ"
+            },
+            "saleInfo": {
+                "country": "PL",
+                "saleability": "FREE",
+                "isEbook": true,
+                "buyLink": "https://play.google.com/store/books/details?id=cwATAAAAIAAJ&rdid=book-cwATAAAAIAAJ&rdot=1&source=gbs_api"
+            },
+            "accessInfo": {
+                "country": "PL",
+                "viewability": "ALL_PAGES",
+                "embeddable": true,
+                "publicDomain": true,
+                "textToSpeechPermission": "ALLOWED",
+                "epub": {
+                    "isAvailable": false,
+                    "downloadLink": "http://books.google.pl/books/download/Sex_in_Education.epub?id=cwATAAAAIAAJ&hl=&output=epub&source=gbs_api"
+                },
+                "pdf": {
+                    "isAvailable": true,
+                    "downloadLink": "http://books.google.pl/books/download/Sex_in_Education.pdf?id=cwATAAAAIAAJ&hl=&output=pdf&sig=ACfU3U1_ozS3dBcooGiol2l-D5-B3jG50Q&source=gbs_api"
+                },
+                "webReaderLink": "http://play.google.com/books/reader?id=cwATAAAAIAAJ&hl=&printsec=frontcover&source=gbs_api",
+                "accessViewStatus": "FULL_PUBLIC_DOMAIN",
+                "quoteSharingAllowed": false
+            }
+        },
+        {
+            "kind": "books#volume",
+            "id": "8xlkPgAACAAJ",
+            "etag": "KM4mcOTtEHQ",
+            "selfLink": "https://www.googleapis.com/books/v1/volumes/8xlkPgAACAAJ",
+            "volumeInfo": {
+                "title": "The Joy of Sex",
+                "authors": [
+                    "Alex Comfort",
+                    "Susan Quilliam"
+                ],
+                "publisher": "Three Rivers Press (CA)",
+                "publishedDate": "2009",
+                "description": "An updated version of the guide first published in 1972 features updated text and illustrations and covers such topics as sexually transmitted diseases and achieving healthy intimacy.",
+                "industryIdentifiers": [
+                    {
+                        "type": "ISBN_10",
+                        "identifier": "0307587789"
+                    },
+                    {
+                        "type": "ISBN_13",
+                        "identifier": "9780307587787"
+                    }
+                ],
+                "readingModes": {
+                    "text": false,
+                    "image": false
+                },
+                "pageCount": 288,
+                "printType": "BOOK",
+                "categories": [
+                    "Family & Relationships"
+                ],
+                "maturityRating": "NOT_MATURE",
+                "allowAnonLogging": false,
+                "contentVersion": "preview-1.0.0",
+                "imageLinks": {
+                    "smallThumbnail": "http://books.google.com/books/content?id=8xlkPgAACAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api",
+                    "thumbnail": "http://books.google.com/books/content?id=8xlkPgAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+                },
+                "language": "en",
+                "previewLink": "http://books.google.pl/books?id=8xlkPgAACAAJ&dq=sex&hl=&cd=8&source=gbs_api",
+                "infoLink": "http://books.google.pl/books?id=8xlkPgAACAAJ&dq=sex&hl=&source=gbs_api",
+                "canonicalVolumeLink": "https://books.google.com/books/about/The_Joy_of_Sex.html?hl=&id=8xlkPgAACAAJ"
+            },
+            "saleInfo": {
+                "country": "PL",
+                "saleability": "NOT_FOR_SALE",
+                "isEbook": false
+            },
+            "accessInfo": {
+                "country": "PL",
+                "viewability": "NO_PAGES",
+                "embeddable": false,
+                "publicDomain": false,
+                "textToSpeechPermission": "ALLOWED",
+                "epub": {
+                    "isAvailable": false
+                },
+                "pdf": {
+                    "isAvailable": false
+                },
+                "webReaderLink": "http://play.google.com/books/reader?id=8xlkPgAACAAJ&hl=&printsec=frontcover&source=gbs_api",
+                "accessViewStatus": "NONE",
+                "quoteSharingAllowed": false
+            },
+            "searchInfo": {
+                "textSnippet": "An updated version of the guide first published in 1972 features updated text and illustrations and covers such topics as sexually transmitted diseases and achieving healthy intimacy."
+            }
+        },
+        {
+            "kind": "books#volume",
+            "id": "WOPgAfHjljoC",
+            "etag": "3sTBRZPHVw0",
+            "selfLink": "https://www.googleapis.com/books/v1/volumes/WOPgAfHjljoC",
+            "volumeInfo": {
+                "title": "Brain Sex",
+                "subtitle": "The Real Difference Between Men and Women",
+                "authors": [
+                    "Anne Moir",
+                    "David Jessel"
+                ],
+                "publisher": "Delta",
+                "publishedDate": "1992",
+                "description": "Focuses on the biological and physiological differences between the male and female brain",
+                "industryIdentifiers": [
+                    {
+                        "type": "ISBN_10",
+                        "identifier": "0385311834"
+                    },
+                    {
+                        "type": "ISBN_13",
+                        "identifier": "9780385311830"
+                    }
+                ],
+                "readingModes": {
+                    "text": false,
+                    "image": false
+                },
+                "pageCount": 242,
+                "printType": "BOOK",
+                "categories": [
+                    "Family & Relationships"
+                ],
+                "averageRating": 3.5,
+                "ratingsCount": 7,
+                "maturityRating": "MATURE",
+                "allowAnonLogging": false,
+                "contentVersion": "2.1.2.0.preview.0",
+                "panelizationSummary": {
+                    "containsEpubBubbles": false,
+                    "containsImageBubbles": false
+                },
+                "imageLinks": {
+                    "smallThumbnail": "http://books.google.com/books/content?id=WOPgAfHjljoC&printsec=frontcover&img=1&zoom=5&source=gbs_api",
+                    "thumbnail": "http://books.google.com/books/content?id=WOPgAfHjljoC&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+                },
+                "language": "en",
+                "previewLink": "http://books.google.pl/books?id=WOPgAfHjljoC&q=sex&dq=sex&hl=&cd=9&source=gbs_api",
+                "infoLink": "http://books.google.pl/books?id=WOPgAfHjljoC&dq=sex&hl=&source=gbs_api",
+                "canonicalVolumeLink": "https://books.google.com/books/about/Brain_Sex.html?hl=&id=WOPgAfHjljoC"
+            },
+            "saleInfo": {
+                "country": "PL",
+                "saleability": "NOT_FOR_SALE",
+                "isEbook": false
+            },
+            "accessInfo": {
+                "country": "PL",
+                "viewability": "NO_PAGES",
+                "embeddable": false,
+                "publicDomain": false,
+                "textToSpeechPermission": "ALLOWED",
+                "epub": {
+                    "isAvailable": false
+                },
+                "pdf": {
+                    "isAvailable": false
+                },
+                "webReaderLink": "http://play.google.com/books/reader?id=WOPgAfHjljoC&hl=&printsec=frontcover&source=gbs_api",
+                "accessViewStatus": "NONE",
+                "quoteSharingAllowed": false
+            },
+            "searchInfo": {
+                "textSnippet": "Focuses on the biological and physiological differences between the male and female brain"
+            }
+        },
+        {
+            "kind": "books#volume",
+            "id": "SbI5AAAAIAAJ",
+            "etag": "PSx3N2g+emE",
+            "selfLink": "https://www.googleapis.com/books/v1/volumes/SbI5AAAAIAAJ",
+            "volumeInfo": {
+                "title": "The Evolution of Sex",
+                "authors": [
+                    "John Maynard Smith"
+                ],
+                "publisher": "Cambridge University Press",
+                "publishedDate": "1978-08-24",
+                "description": "The question of why organisms reproduce sexually is still a matter of controversy. In this account, Professor Maynard Smith considers the selective forces responsible for the origin and evolution of sexual reproduction and genetic recombination, using quantitative population genetics arguments to support his ideas. The relative importance of individual and group selection processes are also considered. the aim is to give a clear statement of the theoretical issues, and present enough of the evidence to show what kinds of facts are relevant. It is hoped that where crucial evidence is missing, experimentalists and field workers may be encouraged to collect the relevant data. The author does not claim to solve all the problems he raises, but this clear and well-argued account should provide stimulating reading for advanced undergraduate students and research workers in evolutionary theory.",
+                "industryIdentifiers": [
+                    {
+                        "type": "ISBN_10",
+                        "identifier": "052121887X"
+                    },
+                    {
+                        "type": "ISBN_13",
+                        "identifier": "9780521218870"
+                    }
+                ],
+                "readingModes": {
+                    "text": false,
+                    "image": true
+                },
+                "pageCount": 242,
+                "printType": "BOOK",
+                "categories": [
+                    "Science"
+                ],
+                "maturityRating": "NOT_MATURE",
+                "allowAnonLogging": false,
+                "contentVersion": "0.3.4.0.preview.1",
+                "panelizationSummary": {
+                    "containsEpubBubbles": false,
+                    "containsImageBubbles": false
+                },
+                "imageLinks": {
+                    "smallThumbnail": "http://books.google.com/books/content?id=SbI5AAAAIAAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+                    "thumbnail": "http://books.google.com/books/content?id=SbI5AAAAIAAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+                },
+                "language": "en",
+                "previewLink": "http://books.google.pl/books?id=SbI5AAAAIAAJ&printsec=frontcover&dq=sex&hl=&cd=10&source=gbs_api",
+                "infoLink": "http://books.google.pl/books?id=SbI5AAAAIAAJ&dq=sex&hl=&source=gbs_api",
+                "canonicalVolumeLink": "https://books.google.com/books/about/The_Evolution_of_Sex.html?hl=&id=SbI5AAAAIAAJ"
+            },
+            "saleInfo": {
+                "country": "PL",
+                "saleability": "NOT_FOR_SALE",
+                "isEbook": false
+            },
+            "accessInfo": {
+                "country": "PL",
+                "viewability": "PARTIAL",
+                "embeddable": true,
+                "publicDomain": false,
+                "textToSpeechPermission": "ALLOWED",
+                "epub": {
+                    "isAvailable": false
+                },
+                "pdf": {
+                    "isAvailable": false
+                },
+                "webReaderLink": "http://play.google.com/books/reader?id=SbI5AAAAIAAJ&hl=&printsec=frontcover&source=gbs_api",
+                "accessViewStatus": "SAMPLE",
+                "quoteSharingAllowed": false
+            },
+            "searchInfo": {
+                "textSnippet": "In this account, Professor Maynard Smith considers the selective forces responsible for the origin and evolution of sexual reproduction and genetic recombination, using quantitative population genetics arguments to support his ideas."
+            }
+        }
+    ]
+}

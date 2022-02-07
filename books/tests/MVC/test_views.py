@@ -1,4 +1,4 @@
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 
 
 # URLs - status codes - GET
@@ -39,14 +39,15 @@ def test_book_edit_status_code(client, db, book_one):
     assert response_absolute.status_code == 200
 
 
-# TODO How to test POST request
-# def test_book_delete_status_code(client, db, book_one, book_two):
-# response_reverse = client.get(reverse_lazy('books:book_delete', kwargs={'pk': book_one.pk}))
-# response_absolute = client.get(f'/books/delete/{book_one.pk}/')
-# print(response_absolute)
-# assert reverse('books:book_delete', kwargs={'pk': book_one.pk}) == f'/books/delete/{book_one.pk}/'
-# assert response_reverse.status_code == 200
-# assert response_absolute.status_code == 200
+def test_book_delete_status_code(client, db, book_one, book_two):
+    response_reverse = client.post(reverse_lazy('books:book_delete', kwargs={'pk': book_one.pk}))
+    response_absolute = client.post(f'/books/delete/{book_two.pk}/')
+    assert reverse_lazy('books:book_delete', kwargs={'pk': book_one.pk}) == f'/books/delete/{book_one.pk}/'
+    assert response_reverse.status_code == 302
+    assert response_absolute.status_code == 302
+    print(response_absolute['Location'])
+    assert response_absolute['Location'] == reverse('books:books_list')
+
 
 def test_add_google_api_books_status_code(client, db):
     response_reverse = client.get(reverse_lazy('books:book_google_api_add'))

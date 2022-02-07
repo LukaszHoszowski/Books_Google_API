@@ -1,6 +1,6 @@
 import pytest
 
-from books.forms import GoogleAPIBookForm, GoogleAPIBookSelectForm
+from books.forms import GoogleAPIBookForm
 
 
 @pytest.mark.parametrize(
