@@ -2,25 +2,26 @@ FROM python:3.10.2-alpine AS build
 
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
-ENV APP_CODE=/usr/src/app
 
-WORKDIR $APP_CODE
+WORKDIR /usr/src/app
 
-COPY Pipfile Pipfile.lock $APP_CODE/
+COPY Pipfile Pipfile.lock ./
 
 RUN apk update \
-    && apk add --no-cache --update --virtual .build-deps gcc postgresql-dev python3-dev musl-dev  \
+    && apk add --no-cache --update --virtual .build-deps gcc postgresql-dev python3-dev musl-dev \
     && python -m pip install --upgrade pip \
     && pip install --no-cache-dir pipenv \
     && pipenv install --system \
     && apk del --no-cache .build-deps
+#    && pipenv install flake8==4.0.1 \
+#    && mkdir -p ./docs/Flake8/
 
-COPY . $APP_CODE/
+COPY . ./
 
 FROM build AS development
-CMD flake8 -v --ignore=E501 --count --output-file=./docs/Flake8/flake8.log
+#CMD flake8 --ignore=E501 --count --output-file=./docs/Flake8/flake8.log
 CMD python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000
 
-EXPOSE 8000:8000
+EXPOSE 8000
 
 # image size: 171.3 MB

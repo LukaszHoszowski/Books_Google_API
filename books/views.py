@@ -285,7 +285,7 @@ class BookAddFromGoogleApi(FormView):
 
         if keyword:
             data = api_call(self.google_api_url, keyword)
-
+# TODO Async IOHTTP /Refactor this func
             if not data.get('totalItems', 0):
                 messages.error(self.request, "We couldn't find any books matching your query", extra_tags='danger')
                 return redirect(reverse('books:book_google_api_add'))

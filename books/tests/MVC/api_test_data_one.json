@@ -1,0 +1,68 @@
+{
+  "kind": "books#volumes",
+  "totalItems": 1,
+  "items": [
+    {
+      "kind": "books#volume",
+      "id": "WwJkzgEACAAJ",
+      "etag": "RoVEN5qOj5U",
+      "selfLink": "https://www.googleapis.com/books/v1/volumes/WwJkzgEACAAJ",
+      "volumeInfo": {
+        "title": "Slow sex",
+        "subtitle": "uwolnij miłość",
+        "authors": [
+          "Marta Niedźwiecka",
+          "Hanna Rydlewska"
+        ],
+        "publishedDate": "2021",
+        "industryIdentifiers": [
+          {
+            "type": "ISBN_10",
+            "identifier": "8326841218"
+          },
+          {
+            "type": "ISBN_13",
+            "identifier": "9788326841217"
+          }
+        ],
+        "readingModes": {
+          "text": false,
+          "image": false
+        },
+        "printType": "BOOK",
+        "maturityRating": "NOT_MATURE",
+        "allowAnonLogging": false,
+        "contentVersion": "preview-1.0.0",
+        "panelizationSummary": {
+          "containsEpubBubbles": false,
+          "containsImageBubbles": false
+        },
+        "language": "pl",
+        "previewLink": "http://books.google.pl/books?id=WwJkzgEACAAJ&dq=8326841218&hl=&cd=1&source=gbs_api",
+        "infoLink": "http://books.google.pl/books?id=WwJkzgEACAAJ&dq=8326841218&hl=&source=gbs_api",
+        "canonicalVolumeLink": "https://books.google.com/books/about/Slow_sex.html?hl=&id=WwJkzgEACAAJ"
+      },
+      "saleInfo": {
+        "country": "PL",
+        "saleability": "NOT_FOR_SALE",
+        "isEbook": false
+      },
+      "accessInfo": {
+        "country": "PL",
+        "viewability": "NO_PAGES",
+        "embeddable": false,
+        "publicDomain": false,
+        "textToSpeechPermission": "ALLOWED",
+        "epub": {
+          "isAvailable": false
+        },
+        "pdf": {
+          "isAvailable": false
+        },
+        "webReaderLink": "http://play.google.com/books/reader?id=WwJkzgEACAAJ&hl=&printsec=frontcover&source=gbs_api",
+        "accessViewStatus": "NONE",
+        "quoteSharingAllowed": false
+      }
+    }
+  ]
+}

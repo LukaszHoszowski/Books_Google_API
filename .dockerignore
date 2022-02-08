@@ -1,7 +1,12 @@
-archive/
 __pycache__
 *.pyc
 db.sqlite3
 .git
 venv
 .venv
+Dockerfile
+readme.md
+requirements.txt
+.idea
+.vscode
+.gitignore

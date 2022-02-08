@@ -1,4 +1,5 @@
 import json
+from http import HTTPStatus
 
 import pytest
 from django.urls import reverse
@@ -10,27 +11,27 @@ from books.models import Language, Author, Book
 # Model helpers
 
 @pytest.fixture(params=('pl',))
-def language_one(db, request) -> Language:
+def language_one(request) -> Language:
     return Language.objects.create(lang=request.param)
 
 
 @pytest.fixture(params=('en',))
-def language_two(db, request) -> Language:
+def language_two(request) -> Language:
     return Language.objects.create(lang=request.param)
 
 
 @pytest.fixture(params=('Antoni Macierewicz',))
-def author_one(db, request) -> Author:
+def author_one(request) -> Author:
     return Author.objects.create(name=request.param)
 
 
 @pytest.fixture(params=('Jas Fasola',))
-def author_two(db, request) -> Author:
+def author_two(request) -> Author:
     return Author.objects.create(name=request.param)
 
 
 @pytest.fixture(params=('Sex Offenders in Oregon',))
-def book_one(db, language_one, author_one, author_two, request) -> Book:
+def book_one(language_one, author_one, author_two, request) -> Book:
     sample_url = 'http://books.google.com/books/content?id=lwidpxMe-AIC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api'
 
     book = Book.objects.create(title=request.param,
@@ -46,7 +47,7 @@ def book_one(db, language_one, author_one, author_two, request) -> Book:
 
 
 @pytest.fixture(params=('Bible',))
-def book_two(db, language_two, author_two, request) -> Book:
+def book_two(language_two, author_two, request) -> Book:
     sample_url = 'http://books.google.com/books/content?id=lwidpxMe-AIC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api'
 
     book = Book.objects.create(title=request.param,
@@ -85,7 +86,7 @@ def get_book_add_response(db):
 
 
 @pytest.fixture
-def get_book_add_google_api_books_response(db):
+def get_book_add_google_api_books_response():
     client = Client(enforce_csrf_checks=True)
     url = reverse('books:book_google_api_add')
     return client.get(url)
@@ -99,14 +100,33 @@ def get_book_edit_response(db, book_one):
 
 
 @pytest.fixture
-def get_book_google_api_add_response(db):
+def get_book_google_api_add_response():
     client = Client(enforce_csrf_checks=True)
     url = reverse('book_google_api_add')
     return client.get(url)
 
 
 @pytest.fixture
-def get_mocked_api_data_response():
-    with open('books/tests/MVC/api_test_data.json') as f:
-        data = json.load(f)
-    return data
+def get_mocked_api_data_response_all():
+    with open('books/tests/MVC/api_test_data_all.json') as f:
+        return json.load(f)
+
+
+@pytest.fixture
+def get_mocked_api_data_response_one():
+    with open('books/tests/MVC/api_test_data_one.json') as f:
+        return json.load(f)
+
+
+@pytest.fixture
+def get_mocked_api_data_response_zero():
+    with open('books/tests/MVC/api_test_data_zero.json') as f:
+        return json.load(f)
+
+
+@pytest.fixture()
+def fake_api_call(mocker, get_mocked_api_data_response_one):
+    fake_resp = mocker.Mock()
+    fake_resp.json = mocker.Mock(return_value=get_mocked_api_data_response_one)
+    fake_resp.status_code = HTTPStatus.OK
+    return fake_resp

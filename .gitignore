@@ -1,9 +1,10 @@
 .idea
+.vscode
 *.pyc
 *.sqlite3
-.env
-.env.db
 .coverage
-archive
 flake8.log
 books/migrations/0001_initial.py
+
+envs/*
+!envs/*-default

@@ -19,6 +19,9 @@ def test_create_author_str_order(author_one, author_two):
 
 @pytest.mark.django_db
 def test_create_book_object_str(book_one):
+    """
+    Tests Book instance creation
+    """
     assert Book.objects.all().count() == 1
     assert str(book_one) == 'Sex Offenders In Oregon'
     assert book_one.title == 'Sex Offenders in Oregon'

@@ -1,16 +1,18 @@
 networks:
-  web:
+  db_network:
+    driver: bridge
+  cache_network:
     driver: bridge
 
 services:
   db:
     image: library/postgres:14.1-alpine
-    environment:
-      - "POSTGRES_HOST_AUTH_METHOD=trust"
+    env_file:
+      - ./envs/.env.db
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     networks:
-      - web
+      - db_network
 
   redis:
     image: redis:alpine
@@ -19,23 +21,27 @@ services:
     volumes:
       - redisdata:/data
     networks:
-      - web
+      - cache_network
 
   backend:
     build:
       context: .
       dockerfile: Dockerfile_alpine
+    image: book_google_api:1.0
     env_file:
       - ./envs/.env
-      - ./envs/.env.db
+    # on production delete volume (hot), only for development
     volumes:
       - .:/usr/src/app/
+    ports:
+      - "8000:8000"
     depends_on:
       - db
       - redis
     restart: "on-failure"
     networks:
-      - web
+      - db_network
+      - cache_network
 
 volumes:
   postgres_data:
