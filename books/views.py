@@ -1,9 +1,6 @@
-import datetime
 import re
 
 from django.contrib import messages
-from django.db.models import Q
-from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.urls import reverse, reverse_lazy
 from django.views.generic import ListView, FormView, DeleteView, UpdateView, CreateView
@@ -11,7 +8,7 @@ from rest_framework import viewsets
 
 from . import forms
 from .forms import BookForm
-from .helper_func import api_call, isbn_lookup, author_create
+from .helper_func import api_call, isbn_lookup, author_create, book_search
 from .models import Book, Language
 from .permissions import NotPostman
 from .serializers import BookSerializer
@@ -52,31 +49,9 @@ class BooksListView(ListView):
 
         q = self.request.GET.get('q')
         option = self.request.GET.get('option')
-        books = self.model.objects.select_related().all()
 
         if q:
-            match option:
-                case "title":
-                    return books.filter(title__icontains=q).distinct()
-                case "author":
-                    return books.filter(author__name__icontains=q).distinct()
-                case "language":
-                    return books.filter(language__lang__icontains=q).distinct()
-                case "date":
-                    try:
-                        q_date = sorted([int(year) for year in q.split('-')])
-                    except ValueError('Year in wrong format'):
-                        return HttpResponse('Year in wrong format')
-
-                    if len(q_date) == 1 and len(q) == 4:
-                        q_date.append(datetime.date.today().year)
-
-                    return books.filter(published_date__gte=q_date[0], published_date__lte=q_date[1]).distinct()
-                case _:
-                    books_q = books.filter(
-                        Q(title__icontains=q) | Q(author__name__icontains=q) | Q(language__lang__icontains=q)
-                    )
-                    return books_q.distinct()
+            return book_search(q, option, self.model)
         return super().get_queryset()
 
 
@@ -285,7 +260,7 @@ class BookAddFromGoogleApi(FormView):
 
         if keyword:
             data = api_call(self.google_api_url, keyword)
-# TODO Async IOHTTP /Refactor this func
+            # TODO Async IOHTTP /Refactor this func
             if not data.get('totalItems', 0):
                 messages.error(self.request, "We couldn't find any books matching your query", extra_tags='danger')
                 return redirect(reverse('books:book_google_api_add'))

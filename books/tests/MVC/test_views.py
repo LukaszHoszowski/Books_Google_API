@@ -1,9 +1,11 @@
+import pytest
 from django.urls import reverse_lazy, reverse
 
 
 # URLs - status codes - GET
 
-def test_main_status_code(client, db):
+@pytest.mark.django_db
+def test_main_status_code(client):
     response_reverse = client.get(reverse_lazy('books_list'))
     response_absolute = client.get('/')
 
@@ -12,7 +14,8 @@ def test_main_status_code(client, db):
     assert response_absolute.status_code == 200
 
 
-def test_main_books_status_code(client, db):
+@pytest.mark.django_db
+def test_main_books_status_code(client):
     response_reverse = client.get(reverse_lazy('books:books_list'))
     response_absolute = client.get('/books/')
 
@@ -21,7 +24,8 @@ def test_main_books_status_code(client, db):
     assert response_absolute.status_code == 200
 
 
-def test_book_add_status_code(client, db):
+@pytest.mark.django_db
+def test_book_add_status_code(client):
     response_reverse = client.get(reverse_lazy('books:book_add'))
     response_absolute = client.get('/books/add/')
 
@@ -30,7 +34,8 @@ def test_book_add_status_code(client, db):
     assert response_absolute.status_code == 200
 
 
-def test_book_edit_status_code(client, db, book_one):
+@pytest.mark.django_db
+def test_book_edit_status_code(client, book_one):
     response_reverse = client.get(reverse_lazy('books:book_edit', kwargs={'pk': book_one.pk}))
     response_absolute = client.get(f'/books/edit/{book_one.pk}/')
 
@@ -39,7 +44,8 @@ def test_book_edit_status_code(client, db, book_one):
     assert response_absolute.status_code == 200
 
 
-def test_book_delete_status_code(client, db, book_one, book_two):
+@pytest.mark.django_db
+def test_book_delete_status_code(client, book_one, book_two):
     response_reverse = client.post(reverse_lazy('books:book_delete', kwargs={'pk': book_one.pk}))
     response_absolute = client.post(f'/books/delete/{book_two.pk}/')
     assert reverse_lazy('books:book_delete', kwargs={'pk': book_one.pk}) == f'/books/delete/{book_one.pk}/'
@@ -49,7 +55,8 @@ def test_book_delete_status_code(client, db, book_one, book_two):
     assert response_absolute['Location'] == reverse('books:books_list')
 
 
-def test_add_google_api_books_status_code(client, db):
+@pytest.mark.django_db
+def test_add_google_api_books_status_code(client):
     response_reverse = client.get(reverse_lazy('books:book_google_api_add'))
     response_absolute = client.get('/books/add_google_api_books/')
 

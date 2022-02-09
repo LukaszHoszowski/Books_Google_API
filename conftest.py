@@ -51,7 +51,7 @@ def book_two(language_two, author_two, request) -> Book:
     sample_url = 'http://books.google.com/books/content?id=lwidpxMe-AIC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api'
 
     book = Book.objects.create(title=request.param,
-                               published_date=1994,
+                               published_date=1996,
                                isbn='1234567890123',
                                page_count=0,
                                cover_link=sample_url,

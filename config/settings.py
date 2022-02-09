@@ -9,7 +9,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY'),
 
 DEBUG = os.environ.get('DEBUG', 0)
 
-ALLOWED_HOSTS = ['ALLOWED_HOSTS']
+ALLOWED_HOSTS = [os.environ.get('ALLOWED_HOSTS')]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -67,7 +67,12 @@ DATABASES = {
     }
 }
 
-DATABASE_URL = os.environ.get('DATABASE_URL')
+DATABASE_URL = f'postgres://{os.environ.get("POSTGRES_USER")}' \
+               f':{os.environ.get("POSTGRES_PASSWORD")}' \
+               f'@{os.environ.get("POSTGRES_HOST")}' \
+               f':{os.environ.get("POSTGRES_PORT")}' \
+               f'/{os.environ.get("POSTGRES_DB")}'
+
 db_from_env = dj_database_url.config(
     default=DATABASE_URL, conn_max_age=500, ssl_require=False
 )
