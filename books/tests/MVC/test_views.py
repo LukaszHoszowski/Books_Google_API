@@ -47,12 +47,12 @@ def test_book_edit_status_code(client, book_one):
 @pytest.mark.django_db
 def test_book_delete_status_code(client, book_one, book_two):
     response_reverse = client.post(reverse_lazy('books:book_delete', kwargs={'pk': book_one.pk}))
-    response_absolute = client.post(f'/books/delete/{book_two.pk}/')
+    response_absolute = client.post(f'/books/delete/{book_two.pk}/', follow=True)
     assert reverse_lazy('books:book_delete', kwargs={'pk': book_one.pk}) == f'/books/delete/{book_one.pk}/'
     assert response_reverse.status_code == 302
-    assert response_absolute.status_code == 302
-    print(response_absolute['Location'])
-    assert response_absolute['Location'] == reverse('books:books_list')
+    assert response_absolute.status_code == 200
+    assert response_reverse['Location'] == reverse('books:books_list')
+    assert 'messages' in response_absolute.content.decode("UTF-8")
 
 
 @pytest.mark.django_db

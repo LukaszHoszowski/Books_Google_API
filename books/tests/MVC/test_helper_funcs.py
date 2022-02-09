@@ -108,4 +108,3 @@ def test_book_search_year(q, option, book_model_class, validity, book_one, book_
      ])
 def test_book_search_wild(q, option, book_model_class, validity, book_one, book_two):
     assert bool(book_one in list(book_search(q, option, book_model_class))) == validity
-

@@ -3,7 +3,6 @@ import urllib.request
 import datetime
 
 from django.db.models import Q
-from django.http import HttpResponse
 
 from books.models import Author
 
