@@ -5,6 +5,7 @@ import datetime
 from django.db.models import Q
 
 from books.models import Author
+from config.settings import STATIC_URL
 
 
 def isbn_lookup(api_dict):
@@ -89,3 +90,39 @@ def book_search(q, option, book_model_class):
                 Q(title__icontains=q) | Q(author__name__icontains=q) | Q(language__lang__icontains=q)
             )
             return books_q.distinct()
+
+
+def book_create(api_dict, book_model_class, language_model_class, chars_3dot, img_placeholder):
+    """
+        Helper function, creates book according to values entered to form:
+        - title - title will be shortened according to give amount of chars in 'chars_3dot' and ended by 3 dot suffix
+        - published_date - year of publication shortened to 4 digits
+        - isbn - isbn according to another helper function -> isbn_lookup()
+        - page_count - number of pages
+        - cover_link - link to book cover image, if not present replaced with placeholder image from 'img_placeholder'
+        - language - book language shortened to 2 chars, if not present 'NA'
+        Case-insensitive.
+        Args:
+            api_dict (dict): api response in json format,
+            book_model_class (class): Book model class
+            language_model_class (class): Language model class
+            chars_3dot (int): maximum number of characters, end with '...'
+            img_placeholder (str): image placeholder name
+        Returns:
+            new_book (object): newly created book instance.
+        """
+
+    title = f"{api_dict.get('title', '')[:chars_3dot]}{'...' if len(api_dict.get('title', '')) > chars_3dot else ''}"
+    published_date = int(api_dict.get('publishedDate', '0')[:4])
+    isbn = isbn_lookup(api_dict)
+    page_count = api_dict.get('pageCount', 0)
+    cover_link = api_dict.get('imageLinks').get('thumbnail') if api_dict.get(
+        'imageLinks') else f'/{STATIC_URL}images/{img_placeholder}'
+    language = language_model_class.objects.get_or_create(lang=api_dict.get('language', 'NA')[:2])[0]
+
+    return book_model_class.objects.get_or_create(title=title,
+                                                  published_date=published_date,
+                                                  isbn=isbn,
+                                                  page_count=page_count,
+                                                  cover_link=cover_link,
+                                                  language=language)[0]

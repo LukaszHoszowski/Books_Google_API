@@ -1,8 +1,8 @@
 import pytest
 import json
 
-from books.helper_func import api_call, author_create, isbn_lookup, book_search
-from books.models import Book
+from books.helper_func import api_call, author_create, isbn_lookup, book_search, book_create
+from books.models import Book, Language
 
 GOOGLE_API_URL = 'https://www.googleapis.com/books/v1/volumes?q='
 KEYWORD = '8326841218'
@@ -37,8 +37,8 @@ def test_isbn_na_lookup(get_mocked_api_data_response_all):
     assert isbn_lookup(entry) == 'NA'
 
 
-def test_api_call_on_mocked_data(mocker, fake_api_call, get_mocked_api_data_response_one):
-    mocker.patch("books.helper_func.api_call", return_value=fake_api_call)
+def test_api_call_on_mocked_data(mocker, fake_api_call_one, get_mocked_api_data_response_one):
+    mocker.patch("books.helper_func.api_call", return_value=fake_api_call_one)
     api_call_keyword = api_call(GOOGLE_API_URL, KEYWORD)
     assert api_call_keyword["totalItems"] == get_mocked_api_data_response_one["totalItems"]
 
@@ -106,7 +106,28 @@ def test_book_search_year(q, option, book_model_class, validity, book_one, book_
      ('OREGON', 'What are you looking for?', Book, True),
      ('Bible', 'What are you looking for?', Book, False),
      ('Fasola', 'What are you looking for?', Book, True),
-     ('1996', 'bla bla', Book, True),
+     ('1996', 'bla bla', Book, False),
      ])
 def test_book_search_wild(q, option, book_model_class, validity, book_one, book_two):
     assert bool(book_one in list(book_search(q, option, book_model_class))) == validity
+
+
+@pytest.mark.django_db
+def test_one_book_create(get_mocked_api_data_response_one):
+    books = get_mocked_api_data_response_one.get('items')[0].get('volumeInfo')
+    book = book_create(books, Book, Language, 50, 'book_placeholder.jpg')
+    assert book.title == 'Slow sex'
+    assert Book.objects.all().count() == 1
+    assert Book.objects.all().first().cover_link == "/static/images/book_placeholder.jpg"
+    assert Book.objects.all().first().language.lang == 'pl'
+
+
+@pytest.mark.django_db
+def test_all_book_create(get_mocked_api_data_response_all):
+    books = get_mocked_api_data_response_all.get('items')
+    for item in books:
+        book_create(item.get('volumeInfo'), Book, Language, 50, 'book_placeholder.jpg')
+    book_w_long_title = Book.objects.all().filter(title__icontains='Nicolai').first().title
+    exp_title_strip = 'Nicolai Copernici Torunensis De revolutionibus orbium coelestium libri sex'[:50] + '...'
+    assert book_w_long_title == exp_title_strip
+    assert Book.objects.all().count() == 10

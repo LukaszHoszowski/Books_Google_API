@@ -8,7 +8,7 @@ from rest_framework import viewsets
 
 from . import forms
 from .forms import BookForm
-from .helper_func import api_call, isbn_lookup, author_create, book_search
+from .helper_func import api_call, isbn_lookup, author_create, book_search, book_create
 from .models import Book, Language
 from .permissions import NotPostman
 from .serializers import BookSerializer
@@ -196,7 +196,6 @@ class BookAddFromGoogleApi(FormView):
     form_class = forms.GoogleAPIBookForm
     template_name = 'books/book_google_api_add.html'
     success_url = reverse_lazy('books:books_list')
-    # TODO Cancel - why redirects to main?
     google_api_url = 'https://www.googleapis.com/books/v1/volumes?q='
 
     def get_form_class(self):
@@ -260,7 +259,6 @@ class BookAddFromGoogleApi(FormView):
 
         if keyword:
             data = api_call(self.google_api_url, keyword)
-            # TODO Async IOHTTP /Refactor this func
             if not data.get('totalItems', 0):
                 messages.error(self.request, "We couldn't find any books matching your query", extra_tags='danger')
                 return redirect(reverse('books:book_google_api_add'))
@@ -275,25 +273,12 @@ class BookAddFromGoogleApi(FormView):
             data = self.request.session.get('data', {}).get('items')
             self.request.session["data"] = None
             books = [book for book in data if book['id'] in form.cleaned_data.get('checked')]
-
+            print(books)
         for book in books:
             entry = book.get('volumeInfo')
 
-            title = f"{entry.get('title', '')[:50]}{'...' if len(entry.get('title', '')) > 50 else ''}"
-            published_date = int(entry.get('publishedDate', '0')[:4])
-            isbn = isbn_lookup(entry)
-            page_count = entry.get('pageCount', 0)
-            cover_link = entry.get('imageLinks').get('thumbnail') if entry.get(
-                'imageLinks') else '/static/images/book_placeholder.jpg'
-            language = Language.objects.get_or_create(lang=entry.get('language', 'NA')[:2])[0]
-
-            new_book = Book.objects.get_or_create(title=title,
-                                                  published_date=published_date,
-                                                  isbn=isbn,
-                                                  page_count=page_count,
-                                                  cover_link=cover_link,
-                                                  language=language)
-            author_create(entry, new_book[0])
+            new_book = book_create(entry, Book, Language, 50, 'book_placeholder.jpg')
+            author_create(entry, new_book)
         return super().form_valid(form)
 
 

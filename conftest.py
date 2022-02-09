@@ -125,8 +125,24 @@ def get_mocked_api_data_response_zero():
 
 
 @pytest.fixture()
-def fake_api_call(mocker, get_mocked_api_data_response_one):
+def fake_api_call_one(mocker, get_mocked_api_data_response_one):
     fake_resp = mocker.Mock()
     fake_resp.json = mocker.Mock(return_value=get_mocked_api_data_response_one)
+    fake_resp.status_code = HTTPStatus.OK
+    return fake_resp
+
+
+@pytest.fixture()
+def fake_api_call_all(mocker, get_mocked_api_data_response_all):
+    fake_resp = mocker.Mock()
+    fake_resp.json = mocker.Mock(return_value=get_mocked_api_data_response_all)
+    fake_resp.status_code = HTTPStatus.OK
+    return fake_resp
+
+
+@pytest.fixture()
+def fake_api_call_zero(mocker, get_mocked_api_data_response_zero):
+    fake_resp = mocker.Mock()
+    fake_resp.json = mocker.Mock(return_value=get_mocked_api_data_response_zero)
     fake_resp.status_code = HTTPStatus.OK
     return fake_resp
