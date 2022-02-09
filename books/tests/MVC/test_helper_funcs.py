@@ -91,6 +91,8 @@ def test_book_search_language(q, option, book_model_class, validity, book_one, b
      ('1996', 'date', Book, False),
      ('2000-2010', 'date', Book, False),
      ('1990-2010', 'date', Book, True),
+     ('1990-2010-2000', 'date', Book, True),
+     ('blabla', 'date', Book, True),
      ])
 def test_book_search_year(q, option, book_model_class, validity, book_one, book_two):
     assert bool(book_one in list(book_search(q, option, book_model_class))) == validity
@@ -104,7 +106,7 @@ def test_book_search_year(q, option, book_model_class, validity, book_one, book_
      ('OREGON', 'What are you looking for?', Book, True),
      ('Bible', 'What are you looking for?', Book, False),
      ('Fasola', 'What are you looking for?', Book, True),
-     ('1996', 'bla bla', Book, False),
+     ('1996', 'bla bla', Book, True),
      ])
 def test_book_search_wild(q, option, book_model_class, validity, book_one, book_two):
     assert bool(book_one in list(book_search(q, option, book_model_class))) == validity

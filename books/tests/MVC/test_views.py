@@ -36,12 +36,17 @@ def test_book_add_status_code(client):
 
 @pytest.mark.django_db
 def test_book_edit_status_code(client, book_one):
-    response_reverse = client.get(reverse_lazy('books:book_edit', kwargs={'pk': book_one.pk}))
+    response_reverse = client.get(reverse_lazy('books:book_edit', kwargs={'pk': book_one.pk}), follow=True)
     response_absolute = client.get(f'/books/edit/{book_one.pk}/')
+    request_save = client.post(f'/books/edit/{book_one.pk}/', follow=True)
+    request_redirect = client.post(f'/books/edit/{book_one.pk}/')
 
     assert reverse_lazy('books:book_edit', kwargs={'pk': book_one.pk}) == f'/books/edit/{book_one.pk}/'
     assert response_reverse.status_code == 200
     assert response_absolute.status_code == 200
+    assert request_save.status_code == 200
+    assert request_redirect.status_code == 200
+    assert 'success' in request_save.content.decode("UTF-8")
 
 
 @pytest.mark.django_db
@@ -52,7 +57,7 @@ def test_book_delete_status_code(client, book_one, book_two):
     assert response_reverse.status_code == 302
     assert response_absolute.status_code == 200
     assert response_reverse['Location'] == reverse('books:books_list')
-    assert 'messages' in response_absolute.content.decode("UTF-8")
+    assert 'success' in response_absolute.content.decode("UTF-8")
 
 
 @pytest.mark.django_db
